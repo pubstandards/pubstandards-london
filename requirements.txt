@@ -2,3 +2,4 @@ Django==1.5.4
 south==0.8.2
 python-dateutil==1.5
 django-ical==1.2
+gunicorn==18.0
