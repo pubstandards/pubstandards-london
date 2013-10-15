@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <h1>{{event}}</h1>
+  <p>Held at <a href='{% url "pub-detail" slug=event.pub.slug %}'>{{event.pub}}</a></p>
+{% endblock %}

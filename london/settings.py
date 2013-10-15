@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     
     'south',
     
+    'london.events',
     'london.pubs',
 )
 
