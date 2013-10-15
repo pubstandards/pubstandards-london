@@ -4,6 +4,7 @@ from django.conf.urls import patterns, include, url
 # from django.contrib import admin
 # admin.autodiscover()
 import london.events.views
+import london.homepage.views
 import london.pubs.views
 
 urlpatterns = patterns('',
@@ -16,6 +17,11 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
+    url(
+        r'^$',
+            london.homepage.views.HomepageView.as_view(),
+            name='homepage',
+    ),
     url(
         r'^event/(?P<slug>.*)$',
             london.events.views.EventDetailView.as_view(),
