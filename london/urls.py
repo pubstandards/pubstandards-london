@@ -48,4 +48,10 @@ urlpatterns = patterns('',
             london.events.views.NextEventsICalFeed(),
             name='nextics',
     ),
+
+    url(
+        r'^previously$',
+            london.events.views.PreviousEvents.as_view(),
+            name='previously',
+    ),
 )

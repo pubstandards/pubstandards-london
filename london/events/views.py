@@ -50,6 +50,19 @@ class NextEventJSON(ListView):
         )
 
 
+class PreviousEvents(ListView):
+    model = Event
+    template_name = 'previously.html'
+    context_object_name = 'events'
+
+    def get_queryset(self):
+        return Event.objects.filter(
+                    date__lte = datetime.date.today()
+                ).order_by(
+                    'date'
+                )
+
+
 class EventsICalFeed(ICalFeed):
     product_id = '-//PUBSTANDARDS//PUBCAL 1.0//EN'
     timezone = 'Europe/London'
