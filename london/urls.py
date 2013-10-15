@@ -38,4 +38,9 @@ urlpatterns = patterns('',
             london.events.views.NextEvents.as_view(),
             name='next',
     ),
+    url(
+        r'^next.json$',
+            london.events.views.NextEventJSON.as_view(),
+            name='next',
+    ),
 )
