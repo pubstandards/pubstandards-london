@@ -1,4 +1,5 @@
 import datetime
+from dateutil.relativedelta import *
 
 from django.db import models
 
@@ -22,6 +23,12 @@ class Event(models.Model):
     slug = models.SlugField( max_length=64 )
     description = models.TextField( blank=True, null=True )
     substandards = models.BooleanField( default=False )
+    
+    def time_until(self):
+        now = datetime.datetime.now()
+        then = datetime.datetime.combine(self.date, self.starts)
+        relative = relativedelta(then, now)
+        return u'%(days)d days, %(hours)d hours and %(minutes)d minutes' % relative.__dict__
     
     def __unicode__(self):
         return self.title

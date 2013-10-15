@@ -7,6 +7,7 @@
     <li>
       <a href='{% url "event-detail" slug=event.slug %}'>{{event}}</a> on {{event.date}} at <a href='{% url "pub-detail" slug=event.pub.slug %}'>{{event.pub}}</a>
       {% if forloop.first %}
+        in {{event.time_until}}
         {% if event.pub.has_latlong %}
           <img src='http://maps.google.com/maps/api/staticmap?size=508x250&amp;sensor=false&amp;zoom=15&amp;center={{event.pub.latitude}},{{event.pub.longitude}}&amp;markers=color:red%7C{{event.pub.latitude}},{{event.pub.longitude}}'>
         {% endif %}
