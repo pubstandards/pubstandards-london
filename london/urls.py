@@ -43,4 +43,9 @@ urlpatterns = patterns('',
             london.events.views.NextEventJSON.as_view(),
             name='next',
     ),
+    url(
+        r'^next.ics$',
+            london.events.views.NextEventsICalFeed(),
+            name='nextics',
+    ),
 )

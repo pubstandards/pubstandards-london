@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from django.utils import simplejson as json
 from django.views.generic import DetailView, ListView
 
+from django_ical.views import ICalFeed
+
 from london.events.models import Event
 
 
@@ -46,3 +48,31 @@ class NextEventJSON(ListView):
             json.dumps(data),
             content_type='application/json'
         )
+
+
+class EventsICalFeed(ICalFeed):
+    product_id = '-//PUBSTANDARDS//PUBCAL 1.0//EN'
+    timezone = 'Europe/London'
+    
+    def item_title(self, item):
+        return item.title
+    
+    def item_description(self, item):
+        return u'Stuff'
+    
+    def item_start_datetime(self, item):
+        return datetime.datetime.combine( item.date, datetime.time( 18, 0, 0 ) )
+    
+    def item_end_datetime(self, item):
+        return datetime.datetime.combine( item.date, datetime.time( 23, 30, 0 ) )
+        
+    def item_location(self, item):
+        if item.pub.address:
+            return '%s, %s' % ( item.pub.name, item.pub.address )
+        else:
+            return item.pub.name
+
+
+class NextEventsICalFeed(EventsICalFeed):
+    def items(self):
+        return Event.objects.filter(date__gte = datetime.date.today()).order_by('date')

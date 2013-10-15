@@ -30,5 +30,9 @@ class Event(models.Model):
         relative = relativedelta(then, now)
         return u'%(days)d days, %(hours)d hours and %(minutes)d minutes' % relative.__dict__
     
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('event-detail', kwargs={'slug':self.slug})
+    
     def __unicode__(self):
         return self.title
