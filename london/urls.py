@@ -54,4 +54,10 @@ urlpatterns = patterns('',
             london.events.views.PreviousEvents.as_view(),
             name='previously',
     ),
+    
+    url(
+        r'^all$',
+            london.events.views.AllEvents.as_view(),
+            name='all',
+    ),
 )
