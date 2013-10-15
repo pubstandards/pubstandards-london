@@ -13,5 +13,5 @@ class HomepageView(TemplateView):
                 date__gt = datetime.date.today()
             ).order_by(
                 'date'
-            )
+            )[:5]
         return context

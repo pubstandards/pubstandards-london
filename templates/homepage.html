@@ -1,18 +1,30 @@
 {% extends "base.html" %}
 
+{% block body-class %}homepage{% endblock %}
 {% block body %}
   <h2>Next, on Pub Standards…</h2>
-  <ol>
+  <ol id='next'>
     {% for event in next_events %}
-    <li>
-      <a href='{% url "event-detail" slug=event.slug %}'>{{event}}</a> on {{event.date}} at <a href='{% url "pub-detail" slug=event.pub.slug %}'>{{event.pub}}</a>
-      {% if forloop.first %}
-        in {{event.time_until}}
-        {% if event.pub.has_latlong %}
+    <li class='{% if forloop.first %}first{% else %}summary{% endif %}'>
+      <h3><a href='{% url "event-detail" slug=event.slug %}' class='nav'>{{event}}</a></h3>
+      <p class='about'>
+        {% if forloop.first %}
+          <span class='time-until'>In {{event.time_until}}</span>
+        {% endif %}
+        {{event.date}}
+        at <a href='{% url "pub-detail" slug=event.pub.slug %}'>{{event.pub}}</a>
+      </p>
+      {% if forloop.first and event.pub.has_latlong %}
+        <p class='map'>
           <img src='http://maps.google.com/maps/api/staticmap?size=508x250&amp;sensor=false&amp;zoom=15&amp;center={{event.pub.latitude}},{{event.pub.longitude}}&amp;markers=color:red%7C{{event.pub.latitude}},{{event.pub.longitude}}'>
+        </p>
+        {% if event.description %}
+          <p class='description'>{{event.description}}</p>
         {% endif %}
       {% endif %}
     </li>
     {% endfor %}
   </ol>
+  <p><a href='/next' class='nav'>All upcoming Pub Standards London events…</a></p>
+  
 {% endblock %}

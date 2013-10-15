@@ -3,11 +3,20 @@
 <html lang='en-gb'>
   <head>
     <meta charset='UTF-8'>
+    <link rel='stylesheet' href='/static/london.css' media='screen'>
   </head>
-  <body>
-    <h1>Pub Standards London</h1>
-    
-    {% block body %}{% endblock %}
-    
+  <body class='{% block body-class %}{% endblock %}'>
+    <div id='main'>
+      <div id='tagline'>
+        <h1><img src='/static/beer_mat.jpg'><b>Pub Standards London</b></h1>
+        <p>
+          The infamous <em>beer-infused</em>, casual, social, warm, raucous, fine,
+          dandy, monthly <em>London</em> meet-up for <em>web folk</em>.
+        </p>
+      </div>
+      <div id='content'>
+        {% block body %}{% endblock %}
+      </div>
+    </div>
   </body>
 </html>
