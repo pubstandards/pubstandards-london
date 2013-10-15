@@ -7,16 +7,28 @@
   </head>
   <body class='{% block body-class %}{% endblock %}'>
     <div id='main'>
-      <div id='tagline'>
+      <header>
         <h1><img src='/static/beer_mat.jpg'><b>Pub Standards London</b></h1>
         <p>
           The infamous <em>beer-infused</em>, casual, social, warm, raucous, fine,
           dandy, monthly <em>London</em> meet-up for <em>web folk</em>.
         </p>
-      </div>
+      </header>
       <div id='content'>
         {% block body %}{% endblock %}
       </div>
     </div>
+    <footer>
+      <p>
+        The code for this site is
+        <a href='https://github.com/norm/pubstandards-london'>available on GitHub</a>.
+      </p>
+      <p>
+        Hosted on a 512MB droplet at DigitalOcean. Help save on hosting costs
+        by using our
+        <a href='https://www.digitalocean.com/?refcode=804308028237'>referral link</a>
+        to sign up.
+      </p>
+    </footer>
   </body>
 </html>

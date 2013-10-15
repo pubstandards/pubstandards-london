@@ -49,7 +49,7 @@ a:focus, a:hover {
     box-shadow: 2px 2px 5px #666;
 }
 
-#tagline {
+header {
     color: #690;
     font-family: 'Hoefler Text', 'Georgia', serif;
     font-size: 1.4em;
@@ -57,16 +57,16 @@ a:focus, a:hover {
     margin-left: 280px;
     min-height: 280px;
 }
-#tagline em {
+header em {
     font-weight: normal;
     color: #360;
 }
-#tagline h1 {
+header h1 {
     position: absolute;
     left: -5px;
     top: -70px;
 }
-#tagline h1 img {
+header h1 img {
     display: block;
 }
 
@@ -111,4 +111,27 @@ h1, h2, h3, h4, h5, h6 {
     content: '—';
     color: black;
     padding: 0 5px;
+}
+
+footer {
+    width:                  30em;
+    min-width:              550px;
+    padding:                1em 40px 2em;
+    color:                  #666;
+    font-size:              0.8em;
+}
+footer a {
+    color:                  #444;
+    border-bottom:          1px dotted #333;
+}
+footer a:visited {
+    color: #444;
+}
+footer a:hover,
+footer a:focus {
+    color:                  white;
+    background:             #666;
+}
+footer p {
+    margin-bottom:          0.5em;
 }
