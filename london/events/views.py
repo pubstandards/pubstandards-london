@@ -95,3 +95,8 @@ class EventsICalFeed(ICalFeed):
 class NextEventsICalFeed(EventsICalFeed):
     def items(self):
         return Event.objects.filter(date__gte = datetime.date.today()).order_by('date')
+
+
+class AllEventsICalFeed(EventsICalFeed):
+    def items(self):
+        return Event.objects.all().order_by('date')

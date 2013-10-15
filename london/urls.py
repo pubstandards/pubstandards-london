@@ -60,4 +60,9 @@ urlpatterns = patterns('',
             london.events.views.AllEvents.as_view(),
             name='all',
     ),
+    url(
+        r'^all.ics$',
+            london.events.views.AllEventsICalFeed(),
+            name='allics',
+    ),
 )
