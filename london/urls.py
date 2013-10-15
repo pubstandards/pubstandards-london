@@ -33,4 +33,9 @@ urlpatterns = patterns('',
             name='pub-detail',
     ),
     
+    url(
+        r'^next$',
+            london.events.views.NextEvents.as_view(),
+            name='next',
+    ),
 )
