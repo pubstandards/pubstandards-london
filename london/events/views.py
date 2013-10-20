@@ -35,11 +35,17 @@ class NextEvents(ListView):
 
 class NextEventJSON(ListView):
     def get(self, request, *args, **kwargs):
-        event = Event.objects.filter(
+        events = Event.objects.filter(
                     date__gte = datetime.date.today()
                 ).order_by(
                     'date'
-                )[0]
+                )[:2]
+        event = events[0]
+        
+        now = datetime.datetime.now()
+        ends = datetime.datetime.combine(event.date, event.ends)
+        if now > ends:
+            event = events[1]
         
         data = {
             'title': event.title,
