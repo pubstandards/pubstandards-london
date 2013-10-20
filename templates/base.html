@@ -8,7 +8,11 @@
   <body class='{% block body-class %}{% endblock %}'>
     <div id='main'>
       <header>
-        <h1><img src='/static/beer_mat.jpg'><b>Pub Standards London</b></h1>
+        <h1>
+          {% if not homepage %}<a href='/'>{% endif %}
+            <img src='/static/beer_mat.jpg'><b>Pub Standards London</b>
+          {% if not homepage %}</a>{% endif %}
+        </h1>
         <p>
           The infamous <em>beer-infused</em>, casual, social, warm, raucous, fine,
           dandy, monthly <em>London</em> meet-up for <em>web folk</em>.

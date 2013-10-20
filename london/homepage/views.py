@@ -14,4 +14,5 @@ class HomepageView(TemplateView):
             ).order_by(
                 'date'
             )[:5]
+        context['homepage'] = True
         return context
