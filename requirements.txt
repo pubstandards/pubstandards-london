@@ -3,3 +3,4 @@ south==0.8.2
 python-dateutil==1.5
 django-ical==1.2
 gunicorn==18.0
+-e git+https://github.com/benthor/inflect.py#egg=inflect

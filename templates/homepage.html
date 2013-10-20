@@ -9,7 +9,7 @@
       <h3><a href='{% url "event-detail" slug=event.slug %}' class='nav'>{{event}}</a></h3>
       <p class='about'>
         {% if forloop.first %}
-          <span class='time-until'>In {{event.time_until}}</span>
+          <span class='time-until'>{{event.time_until}}</span>
         {% endif %}
         {{event.date}}
         at <a href='{% url "pub-detail" slug=event.pub.slug %}'>{{event.pub}}</a>

@@ -1,10 +1,13 @@
 import datetime
+import inflect
 from dateutil.relativedelta import *
 
 from django.db import models
 
 from london.pubs.models import Pub
 
+
+p = inflect.engine()
 
 class Event(models.Model):
     pub = models.ForeignKey(Pub)
@@ -26,9 +29,25 @@ class Event(models.Model):
     
     def time_until(self):
         now = datetime.datetime.now()
-        then = datetime.datetime.combine(self.date, self.starts)
-        relative = relativedelta(then, now)
-        return u'%(days)d days, %(hours)d hours and %(minutes)d minutes' % relative.__dict__
+        starts = datetime.datetime.combine(self.date, self.starts)
+        ends = datetime.datetime.combine(self.date, self.ends)
+        relative = relativedelta(starts, now)
+        days = p.no('day', relative.days)
+        hours = p.no('hour', relative.days)
+        minutes = p.no('minute', relative.days)
+        if relative.days:
+            return u'In %s, %s and %s' % ( days, hours, minutes )
+        else:
+            if relative.hours:
+                return u'In %s and %s' % ( hours, minutes )
+            else:
+                if starts < now:
+                    if ends < now:
+                        return u'Already happened'
+                    else:
+                        return u'Happening right now'
+                else:
+                    return u'In %s' % minutes
     
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
