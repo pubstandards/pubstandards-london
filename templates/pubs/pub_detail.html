@@ -1,8 +1,0 @@
-{% extends "base.html" %}
-
-{% block body %}
-  <h1>{{pub}}</h1>
-  {% if pub.has_latlong %}
-    <img src='http://maps.google.com/maps/api/staticmap?size=508x250&amp;sensor=false&amp;zoom=16&amp;center={{pub.latitude}},{{pub.longitude}}&amp;markers=color:red%7C{{pub.latitude}},{{pub.longitude}}'>
-  {% endif %}
-{% endblock %}

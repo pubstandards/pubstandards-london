@@ -1,6 +1,11 @@
-Django==1.5.4
-south==0.8.2
-python-dateutil==1.5
-django-ical==1.2
 gunicorn==18.0
+flask==0.10.1
+
+pytz==2014.10
+python-dateutil==1.5
+roman==2.0.0
+slug==1.0
+icalendar==3.8.4
+
 -e git+https://github.com/benthor/inflect.py#egg=inflect
+-e git+https://github.com/jonty/the_algorithm#egg=the_algorithm

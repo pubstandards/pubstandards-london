@@ -1,4 +1,3 @@
-{% load staticfiles %}
 <!DOCTYPE html>
 <html lang='en-gb'>
   <head>
@@ -6,7 +5,7 @@
     <link rel='stylesheet' href='/static/london.css' media='screen'>
     <title>Pub Standards London</title>
   </head>
-  <body class='{% block body-class %}{% endblock %}'>
+  <body class='{% block body_class %}{% endblock %}'>
     <div id='main'>
       <header>
         <h1>
@@ -26,13 +25,7 @@
     <footer>
       <p>
         The code for this site is
-        <a href='https://github.com/norm/pubstandards-london'>available on GitHub</a>.
-      </p>
-      <p>
-        Hosted on a 512MB droplet at DigitalOcean. Help save on hosting costs
-        by using our
-        <a href='https://www.digitalocean.com/?refcode=804308028237'>referral link</a>
-        to sign up.
+        <a href='https://github.com/pubstandards/pubstandards-london'>available on GitHub</a>.
       </p>
     </footer>
   </body>

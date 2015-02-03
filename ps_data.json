@@ -1,0 +1,283 @@
+{
+    "2006-09-25": {
+        "name": "Mid-Pub Standards Non-Pub Standards Pub Standards",
+        "location": "De Hems",
+        "address": "11 Macclesfield Street, London W1D 5BW"
+    },
+    "2007-02-01": {
+        "name": "Substandards Pista",
+        "location": "The Porterhouse",
+        "address": "21-22 Maiden Lane, London WC2E 7NA"
+    },
+    "2007-03-01": {
+        "name": "Substandards Rooster",
+        "location": "The Cock Tavern",
+        "address": "27 Great Portland Street, London W1W 8QE"
+    },
+    "2007-03-29": {
+        "name": "Substandards Revenge",
+        "location": "The Harp",
+        "address": "47 Chandos Place, London WC2N 4HS"
+    },
+    "2007-05-03": {
+        "name": "Substandards In A Box",
+        "location": "The Crown",
+        "address": "51 New Oxford Street, London WC1A 1BL"
+    },
+    "2007-06-28": {
+        "name": "Substandards With A Name",
+        "location": "One Tun",
+        "address": "58 Goodge Street, London W1T 4ND"
+    },
+    "2007-08-02": {
+        "name": "Substandards Wastrel",
+        "location": "Ye Olde Cheshire Cheese",
+        "address": "145 Fleet Street, London EC4A 2BU"
+    },
+    "2007-08-30": {
+        "name": "Substandards Wasabi",
+        "location": "The Crown and Two Chairman",
+        "address": "31-32 Dean Street, London W1D 3SB"
+    },
+    "2007-10-04": {
+        "name": "Substandards Cholera",
+        "location": "John Snow",
+        "address": "39 Broadwick Street, London W1F 9QJ"
+    },
+    "2007-11-01": {
+        "name": "Substandards Pumpkin",
+        "location": "Blue Posts",
+        "address": "81 Newman Street, London W1T 3ET"
+    },
+    "2008-01-31": {
+        "name": "Substandards Pancake",
+        "location": "Princess Louise",
+        "address": "208 High Holborn, London WC1V 7EP"
+    },
+    "2008-02-28": {
+        "name": "Substandards Bonobo",
+        "location": "Newman Arms",
+        "address": "23 Rathbone Street, London W1T 1NQ"
+    },
+    "2008-04-03": {
+        "name": "Substandards Spreadable",
+        "location": "Cittie of York",
+        "address": "22 High Holborn, London WC1V 6BN"
+    },
+    "2008-05-01": {
+        "name": "Substandards Legoland",
+        "location": "Nordic Bar",
+        "address": "25 Newman Street, London W1T 1PN"
+    },
+    "2008-06-05": {
+        "name": "Substandards Cirrhosis",
+        "location": "The Crooked Surgeon",
+        "address": "5 Lisle Street, London WC2H 7BG"
+    },
+    "2008-07-03": {
+        "name": "Substandards Placeholder",
+        "location": "Glasshouse Stores",
+        "address": "55 Brewer Street, London W1F 9UJ"
+    },
+    "2008-07-31": {
+        "name": "Substandards Ben",
+        "location": "Duke of Argyll",
+        "address": "37 Brewer Street, London W1F 0RY"
+    },
+    "2008-08-28": {
+        "name": "Substandards Uffington",
+        "location": "The White Horse",
+        "address": "45 Rupert Street, London W1D 7PJ"
+    },
+    "2008-10-02": {
+        "name": "Substandards Orifice",
+        "location": "The Angel",
+        "address": "61- 62 St Giles High Street, London WC2H 8LH"
+    },
+    "2008-10-30": {
+        "name": "Substandards Grand-daddy",
+        "location": "The White Hart",
+        "address": "191 Drury Lane, London WC2B 5QD"
+    },
+    "2008-12-04": {
+        "name": "Substandards Strand",
+        "location": "The Lyceum",
+        "address": "354 Strand, London WC2R 0HS"
+    },
+    "2009-01-29": {
+        "name": "Substandards Nowwithpub",
+        "location": "Salisbury",
+        "address": "90 St Martin's Lane, London WC2N 4AP"
+    },
+    "2009-02-27": {
+        "name": "Substandards Clementine",
+        "location": "Ship and Shovell",
+        "address": "1-3 Craven Passage, London WC2N 5PH"
+    },
+    "2009-03-27": {
+        "name": "Substandards Green Hornet",
+        "location": "Green Man & French Horn",
+        "address": "54 Saint Martin's Lane, London WC2N 4EA"
+    },
+    "2009-04-30": {
+        "name": "Substandards Enthusiasm",
+        "location": "Red Lion",
+        "address": "14 Kingly Street, London W1B 5PR"
+    },
+    "2009-07-02": {
+        "name": "Substandards North",
+        "location": "Yorkshire Grey",
+        "address": "46 Langham Street, London W1W 7AX"
+    },
+    "2009-08-27": {
+        "name": "Substandards Hydrochloride",
+        "location": "The Green Man",
+        "address": "36 Riding House Street, London W1W 7EP"
+    },
+    "2009-12-03": {
+        "name": "Substandards Tardy",
+        "location": "The Crown and Sugarloaf",
+        "address": "98-99 Fleet Street, London EC4Y 1DE"
+    },
+    "2010-03-04": {
+        "name": "Substandards SadPandaFace",
+        "location": "Earl of Lonsdale",
+        "address": "277-281 Westbourne Grove, London W11 2QA"
+    },
+    "2010-06-03": {
+        "name": "Substandards Phoenix",
+        "location": "The Champion",
+        "address": "12-13 Wells Street, London W1T 3PA"
+    },
+    "2010-07-29": {
+        "name": "Substandards Al Fresco",
+        "location": "The Cardinal",
+        "address": "23 Francis Street, London SW1P 1DN"
+    },
+    "2010-08-26": {
+        "name": "Substandards British Summer",
+        "location": "Dover Castle Pub",
+        "address": "43 Weymouth Mews, London W1G 7EQ"
+    },
+    "2010-09-30": {
+        "name": "Substandards Reminiscence",
+        "location": "The Argyll Arms",
+        "address": "18 Argyll Street, London W1F 7TP"
+    },
+    "2010-12-30": {
+        "name": "Substandards By the Glass",
+        "location": "The Glassblower",
+        "address": "40-42 Glasshouse Street, London W1B 5JY"
+    },
+    "2011-02-03": {
+        "name": "Substandards Sunshine",
+        "location": "The Sun",
+        "address": "21 Drury Lane, London WC2B 5RH"
+    },
+    "2011-03-03": {
+        "name": "Substandards Reed Warbler",
+        "location": "The Nell of Old Drury",
+        "address": "29 Catherine Street, London WC2B 5JS"
+    },
+    "2011-03-31": {
+        "name": "Substandards Hippopotomonstrosesquipedaliophobia",
+        "location": "The Old Crown",
+        "address": "33 New Oxford Street, London WC1A 1BH"
+    },
+    "2011-05-05": {
+        "name": "Substandards Say Hello, Wave Goodbye",
+        "location": "The Duke of York",
+        "address": "47 Rathbone Street, London W1T 1NW"
+    },
+    "2011-05-12": {
+        "location": "The Duke of York",
+        "address": "47 Rathbone Street, London W1T 1NW"
+    },
+    "2011-06-16": {
+        "location": "The Duke of York",
+        "address": "47 Rathbone Street, London W1T 1NW"
+    },
+    "2011-07-14": {
+        "location": "The Duke of York",
+        "address": "47 Rathbone Street, London W1T 1NW"
+    },
+    "2011-08-18": {
+        "location": "The Duke of York",
+        "address": "47 Rathbone Street, London W1T 1NW"
+    },
+    "2011-09-15": {
+        "location": "The Duke of York",
+        "address": "47 Rathbone Street, London W1T 1NW"
+    },
+    "2011-10-13": {
+        "location": "The Duke of York",
+        "address": "47 Rathbone Street, London W1T 1NW"
+    },
+    "2011-11-17": {
+        "location": "The Duke of York",
+        "address": "47 Rathbone Street, London W1T 1NW"
+    },
+    "2011-12-15": {
+        "location": "The Duke of York",
+        "address": "47 Rathbone Street, London W1T 1NW"
+    },
+    "2012-01-12": {
+        "location": "The Duke of York",
+        "address": "47 Rathbone Street, London W1T 1NW"
+    },
+    "2012-02-02": {
+        "name": "Substandards Recrudescence",
+        "location": "Bricklayer's Arms",
+        "address": "31 Gresse Street, London W1T 1QS"
+    },
+    "2012-02-16": {
+        "location": "The Duke of York",
+        "address": "47 Rathbone Street, London W1T 1NW"
+    },
+    "2012-03-01": {
+        "name": "Substandards Warmongers",
+        "location": "The Gunmakers",
+        "address": "13 Eyre Street Hill, London EC1R 5ET"
+    },
+    "2012-03-29": {
+        "name": "Substandards Blue Marlin",
+        "location": "The Fellow",
+        "address": "24 York Way, London N1 9AA"
+    },
+    "2012-10-04": {
+        "name": "Substandards Kernel Panic",
+        "location": "The Old Fountain",
+        "address": "3 Baldwin Street, London EC1V 9NU"
+    },
+    "2012-11-29": {
+        "name": "Substandards Shipping Forecast",
+        "location": "The Ship Tavern",
+        "address": "12 Gate Street, London WC2A 3HP"
+    },
+    "2014-03-13": {
+        "description": "<p>The ONE HUNDREDTH Pub Standards London event, anticipated since <a href=\"http://dsingleton.github.io/pubstandards-100-upcoming/\">2007</a>.</p>\n<p>Plan of action:</p>\n<ul>\n<li><strong>12pm</strong> Lunch at <a href=\"http://www.shepherdneame.co.uk/pubs/london/bloomsbury-tavern\">The Bloomsbury Tavern</a></li>\n<li><strong>1.30–2pm</strong> Get to the Bricklayer's and start drinking</li>\n<li><strong>6–8pm</strong> Laugh at the latecomers who didn't book the day off work</li>\n<li><strong>8pm AUCTION!</strong></li>\n<li><strong>8pm–10pm</strong> Burrito runs</li>\n<li><strong>11.25pm</strong> What? Cocktails you say?</li>\n</ul>\n<p>We'll be auctioning off a bunch of classic tech and startup stuff, including some last.fm schwag and an original Upcoming.org baseball tshirt. All proceeds will go to <a href=\"https://archive.org/donate/index.php\">archive.org</a>.</p>\n<p>If you have anything you're happy to donate, bring it along!</p>"
+    },
+    "2014-03-14": {
+        "name": "Post-Pub Standards 100 Seaside Trip",
+        "location": "Whitstable",
+        "address": "Whitstable, Kent",
+        "description": "<p>Since we've all got Friday booked off, instead of sitting around hung over and feeling sorry for ourselves, we're going to the seaside! The plan is to head to Whitstable, which is a nice place with plentiful seafood and a local brewery bar if we decide such a thing is necessary.</p>\n<p>Getting the 12:22 high speed train from St Pancras (changing at Rochester) which takes about 90 minutes to get to Whitstable.</p>\n <p>You can also go from Victoria, which costs slightly less and takes about the same time without a change.</p>\n<p>And you can get on the same train at Stratford International if you're very East, it passes through at 12:28.</p>\n<p><a href=\"http://traintimes.org.uk/STP/WHI/12:00/2014-03-14\">http://traintimes.org.uk/STP/WHI/12:00/2014-03-14</a></p>"
+    },
+    "2014-06-19": {
+        "name": "Substandards Echo",
+        "location": "The Bricklayers Arms",
+        "address": "31 Gresse Street, London W1T 1QS"
+    },
+    "2014-07-03": {
+        "name": "Substandards Parklife",
+        "location": "Regent's Park",
+        "address": "Regent's Park, London",
+        "status": "cancelled"
+    },
+    "2015-02-26": {
+        "name": "Substandards How Do I Even",
+        "location": "The Cask Pub And Kitchen",
+        "address": "6 Charlwood St, Pimlico, London SW1V 2EE"
+    }
+}
+

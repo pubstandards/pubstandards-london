@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <h1>{{event.title}}</h1>
+  <p>{% if event.in_the_past %}Was{% else %}Will be{% endif %} held at <a href='http://maps.google.co.uk/maps?q={{event.address}}'>{{event.location}}</a> on {{event.pretty_date}}{% if not event.in_the_past %} from {{event.pretty_time_period}}{% endif %}</p>
+  {% if event.address %}
+    <p class='map'>
+      <img src='http://maps.google.com/maps/api/staticmap?size=508x250&amp;sensor=false&amp;zoom=15&amp;center={{ event.address }}&amp;markers=color:red%7C{{ event.address }}'>
+    </p>
+    {% if event.description %}
+      <div class='description'>
+      {{ event.description|safe }}
+      </div>
+    {% endif %}
+  {% endif %}
+</li>
+{% endblock %}
