@@ -13,7 +13,7 @@
       <h3><a href='/event/{{event.slug}}' class='nav{% if event.name %} substandards{% endif %}'>{{event.title}}</a></h3>
       <p class='about'>
         {{event.pretty_date}}
-        at <a href='{{pub_detail}}'>{{event.location}}</a>
+        at <a href='http://maps.google.co.uk/maps?q={{event.address}}'>{{event.location}}</a>
       </p>
     </li>
   {% endfor %}
