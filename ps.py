@@ -17,17 +17,16 @@ def homepage():
 def next():
     return flask.render_template('next.html', events=next_events())
 
+@app.route('/previous')
+def previous():
+    events = ps_data.events(end=datetime.datetime.now())
+    return flask.render_template('previous.html', events=events)
+
 @app.route('/next.ics')
-def nextics():
-    return events_to_ical(next_events(), 'Upcoming Pub Standards Events')
-
-@app.route('/all')
-def all():
-    return flask.render_template('all.html', events=all_events())
-
 @app.route('/all.ics')
-def allics():
-    return events_to_ical(all_events(), 'All Pub Standards Events')
+def ics():
+    next_year = datetime.datetime.now() + datetime.timedelta(weeks=52)
+    return events_to_ical(ps_data.events(end=next_year), 'Pub Standards Events')
 
 @app.route('/event/pub-standards-<numeral>')
 def ps_event(numeral):
@@ -59,10 +58,6 @@ def next_events():
     now = datetime.datetime.now()
     future = now + datetime.timedelta(weeks=52)
     return ps_data.events(start=now, end=future)
-
-def all_events():
-    next_year = datetime.datetime.now() + datetime.timedelta(weeks=52)
-    return ps_data.events(end=next_year)
 
 def events_to_ical(events, title):
     cal = Calendar()

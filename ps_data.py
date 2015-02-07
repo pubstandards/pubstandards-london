@@ -120,12 +120,13 @@ def gen_events(start=None, end=None):
         yield PSEvent(date=date)
         date = gen.next()
 
-def get_manual_ps_events(start=None):
+def get_manual_ps_events(start=None, end=None):
     for stringdate, event in load_ps_data().items():
         event = PSEvent(event, date=stringdate, override=True)
         if start and event.date < start:
             continue
-        yield event
+        if not end or event.date < end:
+            yield event
 
 # heapq.merge is not stable, however the merge guaranteed overrides will be sequential
 def merge_event_iters(one, two):
@@ -137,12 +138,14 @@ def merge_event_iters(one, two):
                 if event.override:
                     previous = event
                     continue
+                else:
+                    event = None
             yield previous
         previous = event
     yield previous
 
 def events(start=None, end=None):
     return merge_event_iters(
-        get_manual_ps_events(start=start),
+        get_manual_ps_events(start=start, end=end),
         gen_events(start=start, end=end)
     )
