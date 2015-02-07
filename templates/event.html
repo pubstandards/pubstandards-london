@@ -5,7 +5,7 @@
   <p>{% if event.in_the_past %}Was{% else %}Will be{% endif %} held at <a href='http://maps.google.co.uk/maps?q={{event.address}}'>{{event.location}}</a> on {{event.pretty_date}}{% if not event.in_the_past %} from {{event.pretty_time_period}}{% endif %}</p>
   {% if event.address %}
     <p class='map'>
-      <img src='https://maps.google.com/maps/api/staticmap?size=508x250&amp;sensor=false&amp;zoom=15&amp;center={{ event.address }}&amp;markers=color:red%7C{{ event.address }}'>
+        <iframe width="508" height="250" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{event.address}}&key=AIzaSyB6e6ARbWZOETgBrJ54j3R0z7p93UzhYMQ"></iframe>
     </p>
     {% if event.description %}
       <div class='description'>

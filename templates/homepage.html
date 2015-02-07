@@ -8,17 +8,17 @@
   <h2>Next, on Pub Standards…</h2>
   <ol id='next'>
     <li class='first'>
-      <h3><a href='/event/{{ next_event.slug }}' class='nav'>{{ next_event.title }}</a></h3>
+      <h3><a href='/event/{{ event.slug }}' class='nav'>{{ event.title }}</a></h3>
       <p class='about'>
-        <span class='time-until'>{{next_event.time_until}}</span>
-        {{next_event.pretty_date}} at <a href='http://maps.google.co.uk/maps?q={{next_event.address}}'>{{next_event.location}}</a> ({{ next_event.pretty_time_period }})      
+        <span class='time-until'>{{event.time_until}}</span>
+        {{event.pretty_date}} at <a href='http://maps.google.co.uk/maps?q={{event.address}}'>{{event.location}}</a> ({{ event.pretty_time_period }})      
       </p>
-      {% if next_event.address %}
+      {% if event.address %}
         <p class='map'>
-          <img src='https://maps.google.com/maps/api/staticmap?size=508x250&amp;sensor=false&amp;zoom=15&amp;center={{ next_event.address }}&amp;markers=color:red%7C{{ next_event.address }}'>
+            <iframe width="508" height="250" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{event.address}}&key=AIzaSyB6e6ARbWZOETgBrJ54j3R0z7p93UzhYMQ"></iframe>
         </p>
-        {% if next_event.description %}
-          <p class='description'>{{ next_event.description }}</p>
+        {% if event.description %}
+          <p class='description'>{{ event.description }}</p>
         {% endif %}
       {% endif %}
     </li>

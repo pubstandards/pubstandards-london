@@ -11,7 +11,7 @@ app = flask.Flask(__name__)
 
 @app.route('/')
 def homepage():
-    return flask.render_template('homepage.html', next_event=next_events().next())
+    return flask.render_template('homepage.html', event=next_events().next())
 
 @app.route('/next')
 def next():
