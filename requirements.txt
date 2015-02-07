@@ -1,5 +1,4 @@
 gunicorn==18.0
-gevent==1.0.1
 flask==0.10.1
 
 pytz==2014.10

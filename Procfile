@@ -1,1 +1,1 @@
-web: gunicorn ps:app --worker-class gevent --log-file -
+web: gunicorn ps:app --log-file -
