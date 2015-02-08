@@ -17,7 +17,7 @@ PS_STARTS   = datetime.time(18,0,0)
 PS_ENDS     = datetime.time(23,30,0)
 PS_DESCRIPTION = 'We\'ll meet in the upstairs room as usual.'
 
-class PSEvent:
+class PSEvent(object):
     def __init__(self, data={}, date=None, override=False):
         self.starts     = PS_STARTS
         self.ends       = PS_ENDS
