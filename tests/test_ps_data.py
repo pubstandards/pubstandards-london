@@ -62,6 +62,13 @@ class ValidateData(unittest.TestCase):
                 assert not name.startswith('Pub Standards '), 'Attempt to override name %r' % name
                 seen_names.add(name)
 
+    def test_events_in_order(self):
+        datestrs = list(self.events)
+        dates = map(parse_datestr, datestrs)
+
+        assert dates == sorted(dates), 'Events are not in date order'
+        assert datestrs == sorted(datestrs), 'Events are not in strict order'
+
     def test_datetimes_unambiguous(self):
         # Check that the start time in the local timezone isn't an unambiguous time
         pass
