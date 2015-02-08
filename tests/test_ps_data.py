@@ -53,8 +53,6 @@ class ValidateData(unittest.TestCase):
                     name = event['name']
                     assert name.startswith('Pub Standards '), 'Unexpected name %s' % name
 
-                continue
-
             else:
                 name = event['name']
                 assert name is not None, 'Manual event has no name'
