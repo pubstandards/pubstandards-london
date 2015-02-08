@@ -26,9 +26,9 @@ class ValidateData(unittest.TestCase):
 
         for datestr, event in self.events.items():
             if is_algorithmic_ps_date(datestr):
-                print 'Checking override event %s: %s', (datestr, event)
+                print 'Checking override event %s: %s' % (datestr, event)
             else:
-                print 'Checking additional event %s: %s', (datestr, event)
+                print 'Checking additional event %s: %s' % (datestr, event)
 
             checked_fields = set()
             for field in event:
