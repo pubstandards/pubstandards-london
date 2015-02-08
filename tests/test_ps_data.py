@@ -148,7 +148,7 @@ class TestFormatting(unittest.TestCase):
 
         ps_100 = ps_data.get_ps_event_by_slug('pubstandards-c')
         dt = ps_100.datetime
-        assert dt['starts'] == datetime(2014, 3, 13, 18, 0), '%r is wrong star time' % dt['starts']
+        assert dt['starts'] == datetime(2014, 3, 13, 18, 0), '%r is wrong start time' % dt['starts']
 
     def test_cancelled_event(self):
         ss_pista = ps_data.get_ps_event_by_slug('substandards-pista')
