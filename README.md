@@ -7,13 +7,12 @@ Open ```ps_data.json```, add a new entry for the event - the format is fairly se
 
 If you're adding more information about an event, just use the same date as the automatically generated one and specify the fields you want to override. Look at PS C and PS LXVI for examples.
 
-NOTE: It is important that the items stay in date order, so make sure of that before committing/pushing.
-
 How to hack on this website
 ---------------------------
 * Check out the repository
-* ```pip install -r requirements.txt``` (You probably want to do this in a virtualenv)
-* ```python ps.py```
+* ```make init```
+* ```make reqs```
+* ```make```
 * Open a browser to [http://localhost:5000](http://localhost:5000)
 * Hack away!
 * Prod a PS regular (Norm, James, Jonty, etc) for commit access, or fork
