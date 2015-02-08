@@ -34,7 +34,7 @@ def ps_event(numeral):
         number = roman.fromRoman(numeral.upper())
     except roman.InvalidRomanNumeralError:
         return "Invalid roman numeral!", 400
-        
+
     event = ps_data.get_ps_event_by_number(number)
     return flask.render_template('event.html', event=event)
 
