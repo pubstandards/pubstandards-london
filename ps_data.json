@@ -272,7 +272,7 @@
         "name": "Substandards Parklife",
         "location": "Regent's Park",
         "address": "Regent's Park, London",
-        "status": "cancelled"
+        "cancelled": true
     },
     "2015-02-26": {
         "name": "Substandards How Do I Even",
