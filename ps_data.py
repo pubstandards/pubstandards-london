@@ -13,22 +13,22 @@ p = inflect.engine()
 
 PS_LOCATION = 'The Bricklayers Arms'
 PS_ADDRESS  = '31 Gresse Street, London W1T 1QS'
-PS_STARTS   = datetime.time(18,0,0)
-PS_ENDS     = datetime.time(23,30,0)
+PS_STARTS   = datetime.time(18, 0, 0)
+PS_ENDS     = datetime.time(23, 30, 0)
 PS_DESCRIPTION = 'We\'ll meet in the upstairs room as usual.'
 
-class PSEvent:
+class PSEvent(object):
     def __init__(self, data={}, date=None, override=False):
-        self.starts     = PS_STARTS
-        self.ends       = PS_ENDS
-        self.location   = PS_LOCATION
-        self.address    = PS_ADDRESS
-        self.name       = None
-        self.description= PS_DESCRIPTION
-        self.cancelled  = False
-        self.override   = override
+        self.starts      = PS_STARTS
+        self.ends        = PS_ENDS
+        self.location    = PS_LOCATION
+        self.address     = PS_ADDRESS
+        self.name        = None
+        self.description = PS_DESCRIPTION
+        self.cancelled   = False
+        self.override    = override
 
-        if date != None:
+        if date is not None:
             data['date'] = date
 
         for k, v in data.items():
@@ -43,11 +43,11 @@ class PSEvent:
 
     @property
     def title(self):
-        if self.name == None:
+        if self.name is None:
             offset = the_algorithm.ps_offset_from_date(self.date)
             return 'Pub Standards ' + roman.toRoman(offset)
         return self.name
-    
+
     @property
     def slug(self):
         return slug.slug(unicode(self.title))
@@ -58,7 +58,7 @@ class PSEvent:
 
     @property
     def pretty_time_period(self):
-        return self.starts.strftime('%-I:%M%p') + ' - ' + self.ends.strftime('%-I:%M%p') 
+        return self.starts.strftime('%-I:%M%p') + ' - ' + self.ends.strftime('%-I:%M%p')
 
     @property
     def datetime(self):
@@ -97,7 +97,7 @@ class PSEvent:
 
 def load_ps_data():
     return json.load(
-        open('ps_data.json'), 
+        open('ps_data.json'),
         object_pairs_hook=OrderedDict
     )
 
@@ -105,6 +105,7 @@ def get_ps_event_by_number(number):
     date = the_algorithm.ps_date_from_offset(number)
     stringdate = date.strftime('%Y-%m-%d')
     event_data = load_ps_data().get(stringdate, {})
+    # FIXME: should set override, surely?
     return PSEvent(event_data, date=date)
 
 def get_ps_event_by_slug(slug):
