@@ -90,7 +90,6 @@ class TestFormatting(unittest.TestCase):
         dt = second_ps.datetime
         assert dt['starts'] == datetime(2006, 1, 12, 18, 0), '%s is wrong start time' % dt['starts']
 
-    @unittest.skip("The algorithm currently doesn't return same-day events")
     def test_ps_ranges_same_day(self):
         first_ps = ps_data.gen_events(start=datetime(2005, 12, 15)).next()
         dt = first_ps.datetime
@@ -114,7 +113,6 @@ class TestFormatting(unittest.TestCase):
         dt = second_ps.datetime
         assert dt['starts'] == datetime(2006, 1, 12, 18, 0), '%s is wrong start time' % dt['starts']
 
-    @unittest.skip("The algorithm currently doesn't return same-day events")
     def test_merged_ranges_algorithmic_same_day(self):
         first_ps = ps_data.events(start=datetime(2005, 12, 15)).next()
         dt = first_ps.datetime

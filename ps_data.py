@@ -115,17 +115,17 @@ def get_ps_event_by_slug(slug):
 
 def gen_events(start=None, end=None):
     gen = the_algorithm.gen_ps_dates(start)
-    date = gen.next()
-    while not end or date < end:
-        yield PSEvent(date=date)
-        date = gen.next()
+    event = PSEvent(date=gen.next())
+    while not end or event.datetime['ends'] < end:
+        yield event
+        event = PSEvent(date=gen.next())
 
 def get_manual_ps_events(start=None, end=None):
     for stringdate, event in load_ps_data().items():
         event = PSEvent(event, date=stringdate, override=True)
-        if start and event.date < start:
+        if start and event.datetime['starts'] < start:
             continue
-        if not end or event.date < end:
+        if not end or event.datetime['ends'] < end:
             yield event
 
 # heapq.merge is not stable, however the merge guaranteed overrides will be sequential
