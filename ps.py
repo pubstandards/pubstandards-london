@@ -62,6 +62,8 @@ def next_events():
 def events_to_ical(events, title):
     cal = Calendar()
     cal.add('summary', title)
+    cal.add('X-WR-CALNAME', title)
+    cal.add('X-WR-CALDESC', title)
     cal.add('version', '2.0')
     for event in events:
         cal_event = Event()
