@@ -1,30 +1,29 @@
 {% extends "base.html" %}
 
-{% block body-class %}homepage{% endblock %}
+{% block body_class %}homepage{% endblock %}
 {% block body %}
+  <p>This is the London chapter of <a href="http://pubstandards.com">Pub Standards</a>, a monthly meeting of web-folk. Since 2005 we've been offering after-conference drinks &amp; chat without the conference.</p>
+  <p>See where we've <a href="/previous">been before</a>, where we'll be <a href="/next">in the future</a>, how to <a href="/keep-in-touch">keep in touch</a>, or just find out <a href="/about">more about Pub Standards</a>.</p>
+
   <h2>Next, on Pub Standards…</h2>
   <ol id='next'>
-    {% for event in next_events %}
-    <li class='{% if forloop.first %}first{% else %}summary{% endif %}'>
-      <h3><a href='{% url "event-detail" slug=event.slug %}' class='nav'>{{event}}</a></h3>
+    <li class='first'>
+      <h3><a href='/event/{{ event.slug }}' class='nav'>{{ event.title }}</a></h3>
       <p class='about'>
-        {% if forloop.first %}
-          <span class='time-until'>{{event.time_until}}</span>
-        {% endif %}
-        {{event.date}}
-        at <a href='{% url "pub-detail" slug=event.pub.slug %}'>{{event.pub}}</a>
+        <span class='time-until'>{{event.time_until}}</span>
+        {{event.pretty_date}} at <a href='http://maps.google.co.uk/maps?q={{event.address}}'>{{event.location}}</a> ({{ event.pretty_time_period }})      
       </p>
-      {% if forloop.first and event.pub.has_latlong %}
+      {% if event.address %}
         <p class='map'>
-          <img src='http://maps.google.com/maps/api/staticmap?size=508x250&amp;sensor=false&amp;zoom=15&amp;center={{event.pub.latitude}},{{event.pub.longitude}}&amp;markers=color:red%7C{{event.pub.latitude}},{{event.pub.longitude}}'>
+            <iframe width="508" height="250" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{event.address}}&key=AIzaSyB6e6ARbWZOETgBrJ54j3R0z7p93UzhYMQ"></iframe>
         </p>
         {% if event.description %}
-          <p class='description'>{{event.description}}</p>
+          <p class='description'>{{ event.description }}</p>
         {% endif %}
       {% endif %}
     </li>
-    {% endfor %}
   </ol>
+
   <p><a href='/next' class='nav'>All upcoming Pub Standards London events…</a></p>
   
 {% endblock %}
