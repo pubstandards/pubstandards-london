@@ -105,7 +105,6 @@ def get_ps_event_by_number(number):
     date = the_algorithm.ps_date_from_offset(number)
     stringdate = date.strftime('%Y-%m-%d')
     event_data = load_ps_data().get(stringdate, {})
-    # FIXME: should set override, surely?
     return PSEvent(event_data, date=date)
 
 def get_ps_event_by_slug(slug):
