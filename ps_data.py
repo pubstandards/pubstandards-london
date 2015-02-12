@@ -81,19 +81,16 @@ class PSEvent(object):
         hours = p.no('hour', relative.hours)
         minutes = p.no('minute', relative.minutes)
 
+        if starts < now and now < ends:
+            return u'Happening right now! Get to the pub!'
+
         if relative.days:
             return u'In %s, %s and %s' % ( days, hours, minutes )
         else:
             if relative.hours:
                 return u'In %s and %s' % ( hours, minutes )
             else:
-                if starts < now:
-                    if ends < now:
-                        return u'Already happened'
-                    else:
-                        return u'Happening right now'
-                else:
-                    return u'In %s' % minutes
+                return u'In %s' % minutes
 
 def load_ps_data():
     return json.load(
