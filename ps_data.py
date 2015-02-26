@@ -120,7 +120,7 @@ def gen_events(start=None, end=None):
 def get_manual_ps_events(start=None, end=None):
     for stringdate, event in load_ps_data().items():
         event = PSEvent(event, date=stringdate, override=True)
-        if start and event.datetime['starts'] < start:
+        if start and event.datetime['ends'] < start:
             continue
         if not end or event.datetime['ends'] < end:
             yield event
