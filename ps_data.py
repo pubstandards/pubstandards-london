@@ -10,7 +10,7 @@ import inflect
 import slug
 from dateutil.relativedelta import relativedelta
 
-from util import combine_tz, now_tz
+from util import combine_tz, utc_now
 
 p = inflect.engine()
 
@@ -74,11 +74,11 @@ class PSEvent(object):
 
     @property
     def in_the_past(self):
-        return now_tz() > self.end_dt
+        return utc_now() > self.end_dt
 
     @property
     def time_until(self):
-        now = now_tz()
+        now = utc_now()
         relative = relativedelta(self.start_dt, now)
         days = p.no('day', relative.days)
         hours = p.no('hour', relative.hours)

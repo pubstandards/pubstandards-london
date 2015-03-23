@@ -7,7 +7,7 @@ from icalendar import Calendar, Event
 
 import ps_data
 
-from util import now_tz
+from util import utc_now
 
 app = flask.Flask(__name__)
 
@@ -21,13 +21,13 @@ def next():
 
 @app.route('/previous')
 def previous():
-    events = ps_data.events(end=now_tz())
+    events = ps_data.events(end=utc_now())
     return flask.render_template('previous.html', events=events)
 
 @app.route('/next.ics')
 @app.route('/all.ics')
 def ics():
-    next_year = now_tz() + datetime.timedelta(weeks=52)
+    next_year = utc_now() + datetime.timedelta(weeks=52)
     return events_to_ical(ps_data.events(end=next_year), 'Pub Standards Events')
 
 @app.route('/event/pub-standards-<numeral>')
@@ -57,7 +57,7 @@ def about():
 
 
 def next_events():
-    now = now_tz()
+    now = utc_now()
     future = now + datetime.timedelta(weeks=52)
     return ps_data.events(start=now, end=future)
 
