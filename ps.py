@@ -7,6 +7,8 @@ from icalendar import Calendar, Event
 
 import ps_data
 
+from util import now_tz
+
 app = flask.Flask(__name__)
 
 @app.route('/')
@@ -19,13 +21,13 @@ def next():
 
 @app.route('/previous')
 def previous():
-    events = ps_data.events(end=datetime.datetime.now())
+    events = ps_data.events(end=now_tz())
     return flask.render_template('previous.html', events=events)
 
 @app.route('/next.ics')
 @app.route('/all.ics')
 def ics():
-    next_year = datetime.datetime.now() + datetime.timedelta(weeks=52)
+    next_year = now_tz() + datetime.timedelta(weeks=52)
     return events_to_ical(ps_data.events(end=next_year), 'Pub Standards Events')
 
 @app.route('/event/pub-standards-<numeral>')
@@ -55,7 +57,7 @@ def about():
 
 
 def next_events():
-    now = datetime.datetime.now()
+    now = now_tz()
     future = now + datetime.timedelta(weeks=52)
     return ps_data.events(start=now, end=future)
 
@@ -65,13 +67,14 @@ def events_to_ical(events, title):
     cal.add('X-WR-CALNAME', title)
     cal.add('X-WR-CALDESC', title)
     cal.add('version', '2.0')
+
     for event in events:
         cal_event = Event()
         cal_event.add('uid', event.slug)
         cal_event.add('summary', event.title)
         cal_event.add('location', event.location + ", " + event.address)
-        cal_event.add('dtstart', event.datetime['starts'])
-        cal_event.add('dtend', event.datetime['ends'])
+        cal_event.add('dtstart', event.start_dt)
+        cal_event.add('dtend', event.end_dt)
         cal.add_component(cal_event)
 
     return cal.to_ical(), 200, {'Content-Type': 'text/calendar'}
