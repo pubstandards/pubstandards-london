@@ -1,22 +1,8 @@
 import unittest
 import ps_data
-import the_algorithm
+from test_util import parse_datestr, is_algorithmic_ps_date, utc_datetime
 from datetime import datetime, timedelta
 import pytz
-
-def parse_datestr(datestr):
-    return datetime.strptime(datestr, '%Y-%m-%d')
-
-def utc_datetime(year, month, day, hour=0, minute=0, second=0, microsecond=0):
-    return datetime(year, month, day, hour, minute, second, microsecond, pytz.UTC)
-
-def is_algorithmic_ps_date(ev_datestr):
-    # Fields required vary depending on whether this is Pub or Substandards
-    # This should probably be separated out in the data for ease of testing
-    ev_date = parse_datestr(ev_datestr)
-    day = the_algorithm.calc_middle_thursday(ev_date.year, ev_date.month)
-    return day == ev_date.day
-
 
 class ValidateData(unittest.TestCase):
     required_fields = ['name', 'location', 'address']
@@ -89,7 +75,7 @@ class ValidateData(unittest.TestCase):
                 combine_tz(event_date, ends, tzinfo)
 
 
-class TestFormatting(unittest.TestCase):
+class TestLookups(unittest.TestCase):
 
     def test_events_construct(self):
         manual_events = list(ps_data.get_manual_ps_events())
@@ -176,4 +162,57 @@ class TestFormatting(unittest.TestCase):
 
         ss_parklife = ps_data.get_ps_event_by_slug('substandards-parklife')
         assert ss_parklife.cancelled is True
+
+    def assertAllEqual(self, items):
+        assert len(set(list(items))) == 1, 'Not all items are equal: %r' % items
+
+    def test_around_dst(self):
+        def get_ev_data(ev):
+            return (ev.start_dt,
+                    ev.end_dt,
+                    ev.slug,
+                    ev.pretty_date,
+                    ev.pretty_time_period,
+                    )
+
+        def check_events_for_starts(ev_getter, starts):
+            ev_gens = map(ev_getter, starts)
+            ev_lists = map(list, ev_gens)
+            self.assertAllEqual(len(l) for l in ev_lists)
+
+            for evs in zip(*ev_lists):
+                ev_datas = map(get_ev_data, evs)
+                self.assertAllEqual(ev_datas)
+
+        def check_event_queries_for_starts(starts):
+            # NB we don't test the_algorithm.next_ps_date, but
+            # everything else about it should be deterministic
+            def get_all_evs(start):
+                future = start + timedelta(weeks=52)
+                return ps_data.events(end=future)
+
+            def get_next_evs(start):
+                future = start + timedelta(weeks=52)
+                return ps_data.events(start=start, end=future)
+
+            def get_prev_evs(start):
+                return ps_data.events(end=start)
+
+            check_events_for_starts(get_all_evs, starts)
+            check_events_for_starts(get_next_evs, starts)
+            check_events_for_starts(get_prev_evs, starts)
+
+        begin_dst = [
+            utc_datetime(2014, 3, 30, 0, 30),
+            utc_datetime(2014, 3, 30, 1, 30),
+            utc_datetime(2014, 3, 30, 2, 30),
+        ]
+        end_dst = [
+            utc_datetime(2014, 10, 26, 0, 30),
+            utc_datetime(2014, 10, 26, 1, 30),
+            utc_datetime(2014, 10, 26, 2, 30),
+        ]
+
+        check_event_queries_for_starts(begin_dst)
+        check_event_queries_for_starts(end_dst)
 
