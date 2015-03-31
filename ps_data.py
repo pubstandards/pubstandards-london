@@ -25,7 +25,6 @@ class PSEvent(object):
     def __init__(self, data={}, date=None, override=False):
         self.starts      = PS_STARTS
         self.ends        = PS_ENDS
-        self.timezone    = PS_TIMEZONE
         self.location    = PS_LOCATION
         self.address     = PS_ADDRESS
         self.name        = None
@@ -43,7 +42,7 @@ class PSEvent(object):
                 v = datetime.datetime.strptime(v, '%H:%M').time()
             setattr(self, k, v)
 
-        self.tzinfo = pytz.timezone(self.timezone)
+        self.tzinfo = pytz.timezone(PS_TIMEZONE)
 
         # We use local timezones because the comparisons are minimal, we don't
         # use any timedeltas, and they're stored and displayed as local times.
@@ -51,7 +50,7 @@ class PSEvent(object):
         self.end_dt = combine_tz(self.date, self.ends, self.tzinfo)
 
     def __lt__(self, other):
-        return self.start_dt < other.start_dt
+        return self.date.date() < other.date.date()
 
     @property
     def title(self):

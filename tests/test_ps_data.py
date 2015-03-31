@@ -79,8 +79,7 @@ class ValidateData(unittest.TestCase):
         for datestr, event in self.events.items():
 
             event_date = datetime.strptime(datestr, '%Y-%m-%d')
-            timezone = event.get('timezone', 'Europe/London')
-            tzinfo = pytz.timezone(timezone)
+            tzinfo = pytz.timezone('Europe/London')
             if 'starts' in event:
                 starts = datetime.strptime(event['starts'], '%H:%M').time()
                 combine_tz(event_date, starts, tzinfo)
