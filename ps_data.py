@@ -6,13 +6,10 @@ import pytz
 
 import the_algorithm
 import roman
-import inflect
 import slug
 from dateutil.relativedelta import relativedelta
 
-from util import combine_tz, utc_now
-
-p = inflect.engine()
+from util import combine_tz, utc_now, format_relative_time
 
 PS_LOCATION = 'The Bricklayers Arms'
 PS_ADDRESS  = '31 Gresse Street, London W1T 1QS'
@@ -79,20 +76,11 @@ class PSEvent(object):
     def time_until(self):
         now = utc_now()
         relative = relativedelta(self.start_dt, now)
-        days = p.no('day', relative.days)
-        hours = p.no('hour', relative.hours)
-        minutes = p.no('minute', relative.minutes)
 
         if self.start_dt < now and now < self.end_dt:
             return u'Happening right now! Get to the pub!'
 
-        if relative.days:
-            return u'In %s, %s and %s' % ( days, hours, minutes )
-        else:
-            if relative.hours:
-                return u'In %s and %s' % ( hours, minutes )
-            else:
-                return u'In %s' % minutes
+        return format_relative_time(relative)
 
 def load_ps_data():
     return json.load(
