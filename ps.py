@@ -3,6 +3,7 @@ import datetime
 
 import roman
 import flask
+from flask.ext.assets import Environment
 from icalendar import Calendar, Event
 
 import ps_data
@@ -10,6 +11,9 @@ import ps_data
 from util import utc_now
 
 app = flask.Flask(__name__)
+
+assets = Environment()
+assets.init_app(app)
 
 @app.route('/')
 def homepage():

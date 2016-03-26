@@ -7,6 +7,7 @@ python-dateutil==1.5
 roman==2.0.0
 slug==1.0
 icalendar==3.8.4
+Flask-Assets==0.11
 
 -e git+https://github.com/benthor/inflect.py#egg=inflect
 -e git+https://github.com/jonty/the_algorithm#egg=the_algorithm

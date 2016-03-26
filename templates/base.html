@@ -2,7 +2,10 @@
 <html lang='en-gb'>
   <head>
     <meta charset='UTF-8'>
-    <link rel='stylesheet' href='/static/london.css' media='screen'>
+    {% assets output='gen/screen.%(version)s.css', 'london.css' -%}
+    <link rel='stylesheet' href='{{ ASSET_URL }}' media='screen'>
+    {%- endassets %}
+
     <title>Pub Standards London</title>
   </head>
   <body class='{% block body_class %}{% endblock %}'>
