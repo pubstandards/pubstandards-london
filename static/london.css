@@ -36,7 +36,7 @@ a.nav {
     font-weight: bold;
 }
 a:focus, a:hover {
-    background: #06c;
+    background-color: #06c;
     color: #fff;
 }
 
@@ -182,4 +182,22 @@ footer a:focus {
 }
 footer p {
     margin-bottom:          0.5em;
+}
+
+a.calendar-plus, a.calendar-plus:visited {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    font: 18px "arial", sans-serif;
+    line-height: 18px;
+    text-align: center;
+    background-color: #3c87f9;
+    color: white;
+    /*
+    background: url('https://calendar.google.com/googlecalendar/images/logo-plus.png') center no-repeat;
+    color: transparent;
+    */
+}
+a.calendar-plus:focus, a.calendar-plus:hover {
+    background-color: #06c;
 }
