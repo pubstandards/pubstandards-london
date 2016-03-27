@@ -1,4 +1,5 @@
 import unittest
+import doctest
 import ps_data
 from test_util import parse_datestr, is_algorithmic_ps_date, utc_datetime
 from datetime import datetime, timedelta
@@ -215,4 +216,9 @@ class TestLookups(unittest.TestCase):
 
         check_event_queries_for_starts(begin_dst)
         check_event_queries_for_starts(end_dst)
+
+def test_doctests():
+    results = doctest.testmod(ps_data)
+    if results.failed:
+        raise Exception(results)
 

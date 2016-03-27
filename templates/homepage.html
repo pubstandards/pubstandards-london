@@ -23,6 +23,8 @@
         </p>
         {% if event.description %}
           <p class='description'>{{ event.description }}</p>
+        {% elif not event.override and not event.in_the_past %}
+          We'll meet in the upstairs room as usual.
         {% endif %}
       {% endif %}
     </li>

@@ -16,28 +16,48 @@ PS_ADDRESS  = '31 Gresse Street, London W1T 1QS'
 PS_STARTS   = datetime.time(18, 0, 0)
 PS_ENDS     = datetime.time(23, 30, 0)
 PS_TIMEZONE = 'Europe/London'
-PS_DESCRIPTION = 'We\'ll meet in the upstairs room as usual.'
 
 class PSEvent(object):
-    def __init__(self, data={}, date=None, override=False):
+    """
+    Represents a meeting on a particular date.
+    For a scheduled event, construct with a date from the algorithm.
+    Otherwise override the calendar by passing any date and event_data.
+
+    >>> ps_100 = PSEvent(datetime.date(2014, 3, 13))
+    >>> ps_100
+    <PSEvent 2014-03-13>
+
+    >>> ps_100 == PSEvent('2014-03-13')
+    True
+
+    >>> ps_100_named = PSEvent('2014-03-13', {'name': "PS 100"})
+    >>> ps_100_named == ps_100
+    False
+    >>> ps_100_named
+    <PSEvent 2014-03-13: 'PS 100'>
+    """
+    def __init__(self, date, event_data=None):
+        if isinstance(date, basestring):
+            self.date = datetime.datetime.strptime(date, '%Y-%m-%d').date()
+        else:
+            self.date = date
+
         self.starts      = PS_STARTS
         self.ends        = PS_ENDS
         self.location    = PS_LOCATION
         self.address     = PS_ADDRESS
         self.name        = None
-        self.description = PS_DESCRIPTION
         self.cancelled   = False
-        self.override    = override  # used for merging iters
 
-        if date is not None:
-            data['date'] = date
+        if event_data is None:
+            self.override = False
 
-        for k, v in data.items():
-            if k == 'date' and isinstance(v, basestring):
-                v = datetime.datetime.strptime(v, '%Y-%m-%d')
-            if k in ('starts', 'ends') and isinstance(v, basestring):
-                v = datetime.datetime.strptime(v, '%H:%M').time()
-            setattr(self, k, v)
+        else:
+            self.override = True
+            for k, v in event_data.items():
+                if k in ('starts', 'ends') and isinstance(v, basestring):
+                    v = datetime.datetime.strptime(v, '%H:%M').time()
+                setattr(self, k, v)
 
         self.tzinfo = pytz.timezone(PS_TIMEZONE)
 
@@ -46,8 +66,19 @@ class PSEvent(object):
         self.start_dt = combine_tz(self.date, self.starts, self.tzinfo)
         self.end_dt = combine_tz(self.date, self.ends, self.tzinfo)
 
+    def __eq__(self, other):
+        if self.override or other.override:
+            return set(self.__dict__.items()) == set(other.__dict__.items())
+        return self.date == other.date
+
     def __lt__(self, other):
-        return self.date.date() < other.date.date()
+        return self.date < other.date
+
+    def __repr__(self):
+        datestr = self.date.strftime('%Y-%m-%d')
+        if self.override:
+            return '<PSEvent %s: %r>' % (datestr, self.name)
+        return '<PSEvent %s>' % datestr
 
     @property
     def title(self):
@@ -92,28 +123,33 @@ def get_ps_event_by_number(number):
     date = the_algorithm.ps_date_from_offset(number)
     stringdate = date.strftime('%Y-%m-%d')
     event_data = load_ps_data().get(stringdate, {})
-    return PSEvent(event_data, date=date)
+    if event_data:
+        return PSEvent(date, event_data)
+
+    return PSEvent(date)
 
 def get_ps_event_by_slug(slug):
     for stringdate, event in load_ps_data().items():
-        event = PSEvent(event, date=stringdate)
+        event = PSEvent(stringdate, event)
         if event.slug == slug:
             return event
 
 def gen_events(start=None, end=None):
     gen = the_algorithm.gen_ps_dates(start)
-    event = PSEvent(date=gen.next())
+    # gen_ps_dates actually returns datetimes
+    event = PSEvent(gen.next().date())
     while not end or event.end_dt < end:
         yield event
-        event = PSEvent(date=gen.next())
+        event = PSEvent(gen.next().date())
 
 def get_manual_ps_events(start=None, end=None):
     for stringdate, event in load_ps_data().items():
-        event = PSEvent(event, date=stringdate, override=True)
+        event = PSEvent(stringdate, event)
         if start and event.end_dt < start:
             continue
-        if not end or event.end_dt < end:
-            yield event
+        if end and event.end_dt >= end:
+            continue
+        yield event
 
 # heapq.merge is not stable, however the merge guaranteed overrides will be sequential
 def merge_event_iters(one, two):
@@ -121,7 +157,7 @@ def merge_event_iters(one, two):
     previous = None
     for event in events:
         if previous:
-            if previous.date.date() == event.date.date():
+            if previous.date == event.date:
                 if event.override:
                     previous = event
                     continue
