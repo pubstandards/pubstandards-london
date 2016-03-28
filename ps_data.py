@@ -62,7 +62,7 @@ class PSEvent(object):
 
     @property
     def pretty_date(self):
-        return self.start_dt.strftime('%A %B %d, %Y')
+        return '{dt:%A} {dt:%B} {dt.day}, {dt.year}'.format(dt=self.start_dt)
 
     @property
     def pretty_time_period(self):
