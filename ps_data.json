@@ -290,6 +290,12 @@
         "location": "The Winemakers Club",
         "address": "41a Farringdon St, London EC4A 4AN",
         "description": "We're reliably informed it's not just for wine."
+    },
+    "2016-12-15": {
+        "name": "⛄ Pub Standards CXXXIIImas Edition",
+        "location": "The Bricklayers Arms",
+        "address": "31 Gresse Street, London W1T 1QS",
+        "description": "With special guest georgebrock, who has temporarily escaped from New York"
     }
 }
 
