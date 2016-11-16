@@ -3,6 +3,7 @@ import datetime
 
 import roman
 import flask
+from werkzeug.routing import BaseConverter
 from flask.ext.assets import Environment
 from icalendar import Calendar, Event
 
@@ -14,6 +15,13 @@ app = flask.Flask(__name__)
 
 assets = Environment()
 assets.init_app(app)
+
+class RegexConverter(BaseConverter):
+    def __init__(self, url_map, *items):
+        super(RegexConverter, self).__init__(url_map)
+        self.regex = items[0]
+
+app.url_map.converters['regex'] = RegexConverter
 
 @app.route('/')
 def homepage():
@@ -34,7 +42,7 @@ def ics():
     next_year = utc_now() + datetime.timedelta(weeks=52)
     return events_to_ical(ps_data.events(end=next_year), 'Pub Standards Events')
 
-@app.route('/event/pub-standards-<numeral>')
+@app.route('/event/pub-standards-<regex("[ivxclIVXCL]+"):numeral>/')
 def ps_event(numeral):
     try:
         number = roman.fromRoman(numeral.upper())
