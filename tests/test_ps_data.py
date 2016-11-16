@@ -41,7 +41,7 @@ class ValidateData(unittest.TestCase):
             if is_algorithmic_ps_date(datestr):
                 if 'name' in event:
                     name = event['name']
-                    assert name.startswith('Pub Standards '), 'Unexpected name %s' % name
+                    assert 'Pub Standards' in name, 'Unexpected name %s' % name
 
             else:
                 name = event['name']
