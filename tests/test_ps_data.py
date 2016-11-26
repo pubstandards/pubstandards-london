@@ -1,4 +1,5 @@
 import unittest
+import doctest
 import ps_data
 from test_util import parse_datestr, is_algorithmic_ps_date, utc_datetime
 from datetime import datetime, timedelta
@@ -84,17 +85,13 @@ class TestLookups(unittest.TestCase):
         end = max(next_year, manual_events[-1].end_dt)
         all_events = list(ps_data.events(end=end))
 
-        # As there's no __eq__ for PSEvent yet
-        manual_start_dts = [e.start_dt for e in manual_events]
-        all_start_dts = [e.start_dt for e in all_events]
-        assert set(all_start_dts) > set(manual_start_dts)
+        manual_dates = [e.date for e in manual_events]
+        all_dates = [e.date for e in all_events]
+        assert set(all_dates) > set(manual_dates)
 
     def test_override(self):
         ps_100 = ps_data.get_ps_event_by_number(100)
         assert 'ONE HUNDREDTH' in ps_100.description
-
-    # For now, don't test .date, as it's either date() or datetime(),
-    # depending on whether the event is from the algorithm or not
 
     def assertStartsAt(self, event, dt):
         assert event.start_dt == dt, '%r is wrong start time' % event.start_dt
@@ -215,4 +212,9 @@ class TestLookups(unittest.TestCase):
 
         check_event_queries_for_starts(begin_dst)
         check_event_queries_for_starts(end_dst)
+
+def test_doctests():
+    results = doctest.testmod(ps_data)
+    if results.failed:
+        raise Exception(results)
 

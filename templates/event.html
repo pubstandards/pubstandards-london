@@ -11,6 +11,8 @@
       <div class='description'>
       {{ event.description|safe }}
       </div>
+    {% elif not event.override and not event.in_the_past %}
+      We'll meet in the upstairs room as usual.
     {% endif %}
   {% endif %}
 </li>
