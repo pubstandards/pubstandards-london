@@ -22,7 +22,7 @@
             <iframe width="508" height="250" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{event.address}}&key=AIzaSyB6e6ARbWZOETgBrJ54j3R0z7p93UzhYMQ"></iframe>
         </p>
         {% if event.description %}
-          <p class='description'>{{ event.description }}</p>
+          <p class='description'>{{ event.description|safe }}</p>
         {% endif %}
       {% endif %}
     </li>
