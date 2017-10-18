@@ -19,7 +19,7 @@ PS_TIMEZONE = 'Europe/London'
 PS_DESCRIPTION = 'We\'ll meet in the upstairs room as usual.'
 
 class PSEvent(object):
-    def __init__(self, data={}, date=None, override=False):
+    def __init__(self, data={}, date=None, manual=False):
         self.starts      = PS_STARTS
         self.ends        = PS_ENDS
         self.location    = PS_LOCATION
@@ -27,7 +27,7 @@ class PSEvent(object):
         self.name        = None
         self.description = PS_DESCRIPTION
         self.cancelled   = False
-        self.override    = override  # used for merging iters
+        self.manual    = manual  # used for merging iters
 
         if date is not None:
             data['date'] = date
@@ -47,7 +47,7 @@ class PSEvent(object):
         self.end_dt = combine_tz(self.date, self.ends, self.tzinfo)
 
     def __lt__(self, other):
-        return self.date.date() < other.date.date()
+        return self.date.date() < other.date.date() or (other.manual and not self.manual)
 
     @property
     def title(self):
@@ -109,24 +109,23 @@ def gen_events(start=None, end=None):
 
 def get_manual_ps_events(start=None, end=None):
     for stringdate, event in load_ps_data().items():
-        event = PSEvent(event, date=stringdate, override=True)
+        event = PSEvent(event, date=stringdate, manual=True)
         if start and event.end_dt < start:
             continue
         if not end or event.end_dt < end:
             yield event
 
-# heapq.merge is not stable, however the merge guaranteed overrides will be sequential
 def merge_event_iters(one, two):
     events = heapq.merge(one, two)
     previous = None
+    # In order to only return the manual event if it's intended to override an
+    # algorithmic event, we only yield after we've inspected the next event
     for event in events:
         if previous:
             if previous.date.date() == event.date.date():
-                if event.override:
-                    previous = event
-                    continue
-                else:
-                    event = None
+                # we're overriding the previous event
+                previous = event
+                continue
             yield previous
         previous = event
     yield previous
