@@ -27,7 +27,7 @@ class PSEvent(object):
         self.name        = None
         self.description = PS_DESCRIPTION
         self.cancelled   = False
-        self.manual    = manual  # used for merging iters
+        self.manual      = manual  # used for merging iters
 
         if date is not None:
             data['date'] = date
@@ -47,7 +47,7 @@ class PSEvent(object):
         self.end_dt = combine_tz(self.date, self.ends, self.tzinfo)
 
     def __lt__(self, other):
-        return self.date.date() < other.date.date() or (other.manual and not self.manual)
+        return self.date.date() < other.date.date() or (self.date.date() == other.date.date() and other.manual and not self.manual)
 
     @property
     def title(self):
