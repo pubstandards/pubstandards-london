@@ -81,12 +81,14 @@ class TestLookups(unittest.TestCase):
         manual_events = list(ps_data.get_manual_ps_events())
 
         next_year = datetime.utcnow().replace(tzinfo=pytz.UTC) + timedelta(weeks=52)
-        end = max(next_year, manual_events[-1].end_dt)
+        # Add a minute to the last manual_event because events uses <
+        end = max(next_year, manual_events[-1].end_dt + timedelta(minutes=1))
         all_events = list(ps_data.events(end=end))
 
         # As there's no __eq__ for PSEvent yet
         manual_start_dts = [e.start_dt for e in manual_events]
         all_start_dts = [e.start_dt for e in all_events]
+
         assert set(all_start_dts) > set(manual_start_dts)
 
     def test_override(self):
