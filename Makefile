@@ -7,7 +7,7 @@ run:
 
 init:
 	rm -rf ./env
-	virtualenv ./env
+	virtualenv -p python2.7 ./env
 
 reqs:
 	$(ENV) pip install -r ./requirements.txt
