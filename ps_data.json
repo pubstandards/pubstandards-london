@@ -311,7 +311,8 @@
         "name": "⛄ Pub Standards CLVIImas Edition",
         "location": "The Bricklayers Arms",
         "address": "31 Gresse Street, London W1T 1QS",
-        "description": "An all-day Christmas special edition, starting somewhere else, but we'll all be at the Bricklayers for 7pm as usual. Bring your santa hat and a glass of cheer."
+        "description": "An all-day Christmas special edition, starting somewhere else, but we'll all be at the Bricklayers for 7pm as usual. Bring your santa hat and a glass of cheer.",
+        "starts": "14:30"
     },
     "2022-07-14": {
         "name": "Pub Standards 200",
