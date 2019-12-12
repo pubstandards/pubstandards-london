@@ -321,6 +321,12 @@
         "description": "Enjoy some delicous cocktails in Every Cloud before Felix leaves us all.",
         "starts": "18:30"
     },
+    "2019-12-12": {
+        "name": "Christmas Election Pub Standards CLXIX",
+	"location": "Craft Beer Co",
+	"address": "168 High Holborn, London WC1V 7AA",
+        "description": "Owing to the Sam Smiths phone ban, we will be meeting at the Bricklayers Arms for one pint between 18:30 and 19:00, then retiring to the Craft Beer Co where we can drown our sorrows / celebrate the election results [delete as applicable]."
+    },
     "2022-07-14": {
         "name": "Pub Standards 200",
         "description": "<p>The TWO HUNDREDTH Pub Standards London event, eagerly anticipated since <a href=\"http://archive.upcoming.org/event/pub-standards-100-148676\">2014</a>.</p>\n"
