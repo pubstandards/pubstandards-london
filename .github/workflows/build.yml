@@ -1,0 +1,39 @@
+name: Build and Deploy
+on: 
+  push:
+  schedule:
+    - cron: '0 * * * *'
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '2.7' 
+      - name: Build
+        run: |
+          pip install -r ./requirements.txt
+          python ./ps.py &
+          sleep 10
+          mkdir output
+          wget -P output -nH --mirror --adjust-extension --page-requisites --no-parent http://127.0.0.1:5000
+          kill %1
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GIT_CONFIG_NAME: pubstandards-london
+          GIT_CONFIG_EMAIL: jonty@jonty.co.uk
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: output

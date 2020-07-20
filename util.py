@@ -12,7 +12,7 @@ def utc_now():
     return datetime.utcnow().replace(tzinfo=pytz.UTC)
 
 def format_relative_time(relative):
-    date_part_names = 'year month day hour minute'.split()
+    date_part_names = 'year month day hour'.split()
 
     date_parts = zip(date_part_names, [getattr(relative, date_part+'s') for date_part in date_part_names])
     formatted = [p.no(date_part, value) for (date_part, value) in date_parts if value]
