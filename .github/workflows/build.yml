@@ -25,10 +25,10 @@ jobs:
         run: |
           pip install -r ./requirements.txt
           python ./ps.py &
-          sleep 10
+          while ! nc -z localhost 5000; do sleep 0.1; done; # Wait for server to start
           mkdir output
           wget -P output -nH --mirror --adjust-extension --page-requisites --no-parent http://127.0.0.1:5000
-          kill %1
+          kill %1 # Kill the python server
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
