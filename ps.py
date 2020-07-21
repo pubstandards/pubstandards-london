@@ -42,7 +42,7 @@ def ics():
     next_year = utc_now() + datetime.timedelta(weeks=5200)
     return events_to_ical(ps_data.events(end=next_year), 'Pub Standards Events')
 
-@app.route('/event/pub-standards-<regex("[ivxclIVXCL]+"):numeral>/')
+@app.route('/event/pub-standards-<regex("[ivxcdlIVXCL]+"):numeral>/')
 def ps_event(numeral):
     try:
         number = roman.fromRoman(numeral.upper())
