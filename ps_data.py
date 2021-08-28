@@ -18,6 +18,12 @@ PS_ENDS     = datetime.time(23, 30, 0)
 PS_TIMEZONE = 'Europe/London'
 PS_DESCRIPTION = 'We\'ll meet in the upstairs room as usual.'
 
+# Hiatuses where there were no automatically-generated events.
+HIATUSES = [
+    (datetime.datetime(2020, 3, 13, tzinfo=pytz.UTC), None)  # COVID-19 (ongoing)
+]
+
+
 class PSEvent(object):
     def __init__(self, data={}, date=None, manual=False):
         self.starts      = PS_STARTS
@@ -104,7 +110,8 @@ def gen_events(start=None, end=None):
     gen = the_algorithm.gen_ps_dates(start)
     event = PSEvent(date=gen.next())
     while not end or event.end_dt < end:
-        yield event
+        if not on_hiatus(event.start_dt):
+            yield event
         event = PSEvent(date=gen.next())
 
 def get_manual_ps_events(start=None, end=None):
@@ -130,8 +137,16 @@ def merge_event_iters(one, two):
         previous = event
     yield previous
 
+
+def on_hiatus(event_date):
+    for h_start, h_end in HIATUSES:
+        if h_start < event_date and (h_end is None or h_end > event_date):
+            return True
+    return False
+
 def events(start=None, end=None):
-    return merge_event_iters(
+    for event in merge_event_iters(
         get_manual_ps_events(start=start, end=end),
         gen_events(start=start, end=end)
-    )
+    ):
+        yield event

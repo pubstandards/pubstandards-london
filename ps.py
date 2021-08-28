@@ -25,7 +25,11 @@ app.url_map.converters['regex'] = RegexConverter
 
 @app.route('/')
 def homepage():
-    return flask.render_template('homepage.html', event=next_events().next())
+    try:
+        next_event = next_events().next()
+    except StopIteration:
+        next_event = None
+    return flask.render_template('homepage.html', event=next_event)
 
 @app.route('/next')
 def next():
