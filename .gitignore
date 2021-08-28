@@ -1,2 +1,4 @@
 *.pyc
 *.swp
+static/gen
+static/.webassets-cache

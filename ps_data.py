@@ -11,12 +11,12 @@ from dateutil.relativedelta import relativedelta
 
 from util import combine_tz, utc_now, format_relative_time
 
-PS_LOCATION = 'The Bricklayers Arms'
-PS_ADDRESS  = '31 Gresse Street, London W1T 1QS'
-PS_STARTS   = datetime.time(18, 0, 0)
-PS_ENDS     = datetime.time(23, 30, 0)
-PS_TIMEZONE = 'Europe/London'
-PS_DESCRIPTION = 'We\'ll meet in the upstairs room as usual.'
+PS_LOCATION = "The Bricklayers Arms"
+PS_ADDRESS = "31 Gresse Street, London W1T 1QS"
+PS_STARTS = datetime.time(18, 0, 0)
+PS_ENDS = datetime.time(23, 30, 0)
+PS_TIMEZONE = "Europe/London"
+PS_DESCRIPTION = "We'll meet in the upstairs room as usual."
 
 # Hiatuses where there were no automatically-generated events.
 HIATUSES = [
@@ -26,23 +26,23 @@ HIATUSES = [
 
 class PSEvent(object):
     def __init__(self, data={}, date=None, manual=False):
-        self.starts      = PS_STARTS
-        self.ends        = PS_ENDS
-        self.location    = PS_LOCATION
-        self.address     = PS_ADDRESS
-        self.name        = None
+        self.starts = PS_STARTS
+        self.ends = PS_ENDS
+        self.location = PS_LOCATION
+        self.address = PS_ADDRESS
+        self.name = None
         self.description = PS_DESCRIPTION
-        self.cancelled   = False
-        self.manual      = manual  # used for merging iters
+        self.cancelled = False
+        self.manual = manual  # used for merging iters
 
         if date is not None:
-            data['date'] = date
+            data["date"] = date
 
         for k, v in data.items():
-            if k == 'date' and isinstance(v, basestring):
-                v = datetime.datetime.strptime(v, '%Y-%m-%d')
-            if k in ('starts', 'ends') and isinstance(v, basestring):
-                v = datetime.datetime.strptime(v, '%H:%M').time()
+            if k == "date" and isinstance(v, str):
+                v = datetime.datetime.strptime(v, "%Y-%m-%d")
+            if k in ("starts", "ends") and isinstance(v, str):
+                v = datetime.datetime.strptime(v, "%H:%M").time()
             setattr(self, k, v)
 
         self.tzinfo = pytz.timezone(PS_TIMEZONE)
@@ -53,26 +53,32 @@ class PSEvent(object):
         self.end_dt = combine_tz(self.date, self.ends, self.tzinfo)
 
     def __lt__(self, other):
-        return self.date.date() < other.date.date() or (self.date.date() == other.date.date() and other.manual and not self.manual)
+        return self.date.date() < other.date.date() or (
+            self.date.date() == other.date.date() and other.manual and not self.manual
+        )
 
     @property
     def title(self):
         if self.name is None:
             offset = the_algorithm.ps_offset_from_date(self.date)
-            return 'Pub Standards ' + roman.toRoman(offset)
+            return "Pub Standards " + roman.toRoman(offset)
         return self.name
 
     @property
     def slug(self):
-        return slug.slug(unicode(self.title))
+        return slug.slug(self.title)
 
     @property
     def pretty_date(self):
-        return '{dt:%A} {dt:%B} {dt.day}, {dt.year}'.format(dt=self.start_dt)
+        return "{dt:%A} {dt:%B} {dt.day}, {dt.year}".format(dt=self.start_dt)
 
     @property
     def pretty_time_period(self):
-        return self.start_dt.strftime('%-I:%M%p') + ' - ' + self.end_dt.strftime('%-I:%M%p %Z')
+        return (
+            self.start_dt.strftime("%-I:%M%p")
+            + " - "
+            + self.end_dt.strftime("%-I:%M%p %Z")
+        )
 
     @property
     def in_the_past(self):
@@ -84,21 +90,21 @@ class PSEvent(object):
         relative = relativedelta(self.start_dt, now)
 
         if self.start_dt < now and now < self.end_dt:
-            return u'Happening right now! Get to the pub!'
+            return u"Happening right now! Get to the pub!"
 
         return format_relative_time(relative)
 
+
 def load_ps_data():
-    return json.load(
-        open('ps_data.json'),
-        object_pairs_hook=OrderedDict
-    )
+    return json.load(open("ps_data.json"), object_pairs_hook=OrderedDict)
+
 
 def get_ps_event_by_number(number):
     date = the_algorithm.ps_date_from_offset(number)
-    stringdate = date.strftime('%Y-%m-%d')
+    stringdate = date.strftime("%Y-%m-%d")
     event_data = load_ps_data().get(stringdate, {})
     return PSEvent(event_data, date=date)
+
 
 def get_ps_event_by_slug(slug):
     for stringdate, event in load_ps_data().items():
@@ -106,13 +112,15 @@ def get_ps_event_by_slug(slug):
         if event.slug == slug:
             return event
 
+
 def gen_events(start=None, end=None):
     gen = the_algorithm.gen_ps_dates(start)
-    event = PSEvent(date=gen.next())
+    event = PSEvent(date=next(gen))
     while not end or event.end_dt < end:
         if not on_hiatus(event.start_dt):
             yield event
-        event = PSEvent(date=gen.next())
+        event = PSEvent(date=next(gen))
+
 
 def get_manual_ps_events(start=None, end=None):
     for stringdate, event in load_ps_data().items():
@@ -121,6 +129,7 @@ def get_manual_ps_events(start=None, end=None):
             continue
         if not end or event.end_dt < end:
             yield event
+
 
 def merge_event_iters(one, two):
     events = heapq.merge(one, two)
@@ -144,9 +153,9 @@ def on_hiatus(event_date):
             return True
     return False
 
+
 def events(start=None, end=None):
     for event in merge_event_iters(
-        get_manual_ps_events(start=start, end=end),
-        gen_events(start=start, end=end)
+        get_manual_ps_events(start=start, end=end), gen_events(start=start, end=end)
     ):
         yield event

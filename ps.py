@@ -4,7 +4,7 @@ import datetime
 import roman
 import flask
 from werkzeug.routing import BaseConverter
-from flask.ext.assets import Environment
+from flask_assets import Environment
 from icalendar import Calendar, Event
 
 import ps_data
@@ -16,35 +16,42 @@ app = flask.Flask(__name__)
 assets = Environment()
 assets.init_app(app)
 
+
 class RegexConverter(BaseConverter):
     def __init__(self, url_map, *items):
         super(RegexConverter, self).__init__(url_map)
         self.regex = items[0]
 
-app.url_map.converters['regex'] = RegexConverter
 
-@app.route('/')
+app.url_map.converters["regex"] = RegexConverter
+
+
+@app.route("/")
 def homepage():
     try:
-        next_event = next_events().next()
+        next_event = next(next_events())
     except StopIteration:
         next_event = None
-    return flask.render_template('homepage.html', event=next_event)
+    return flask.render_template("homepage.html", event=next_event)
 
-@app.route('/next')
-def next():
-    return flask.render_template('next.html', events=next_events())
 
-@app.route('/previous')
+@app.route("/next")
+def next_event():
+    return flask.render_template("next.html", events=next_events())
+
+
+@app.route("/previous")
 def previous():
     events = ps_data.events(end=utc_now())
-    return flask.render_template('previous.html', events=events)
+    return flask.render_template("previous.html", events=events)
 
-@app.route('/next.ics')
-@app.route('/all.ics')
+
+@app.route("/next.ics")
+@app.route("/all.ics")
 def ics():
     next_year = utc_now() + datetime.timedelta(weeks=5200)
-    return events_to_ical(ps_data.events(end=next_year), 'Pub Standards Events')
+    return events_to_ical(ps_data.events(end=next_year), "Pub Standards Events")
+
 
 @app.route('/event/pub-standards-<regex("[ivxcdmlIVXCDML]+"):numeral>/')
 def ps_event(numeral):
@@ -54,22 +61,25 @@ def ps_event(numeral):
         return "Invalid roman numeral!", 400
 
     event = ps_data.get_ps_event_by_number(number)
-    return flask.render_template('event.html', event=event)
+    return flask.render_template("event.html", event=event)
 
-@app.route('/event/<slug>')
+
+@app.route("/event/<slug>")
 def other_event(slug):
     event = ps_data.get_ps_event_by_slug(slug)
     if not event:
         return "Unknown event", 404
-    return flask.render_template('event.html', event=event)
+    return flask.render_template("event.html", event=event)
 
-@app.route('/keep-in-touch')
+
+@app.route("/keep-in-touch")
 def keep_in_touch():
-    return flask.render_template('keep-in-touch.html')
+    return flask.render_template("keep-in-touch.html")
 
-@app.route('/about')
+
+@app.route("/about")
 def about():
-    return flask.render_template('about.html')
+    return flask.render_template("about.html")
 
 
 def next_events():
@@ -77,23 +87,25 @@ def next_events():
     future = now + datetime.timedelta(weeks=5200)
     return ps_data.events(start=now, end=future)
 
+
 def events_to_ical(events, title):
     cal = Calendar()
-    cal.add('summary', title)
-    cal.add('X-WR-CALNAME', title)
-    cal.add('X-WR-CALDESC', title)
-    cal.add('version', '2.0')
+    cal.add("summary", title)
+    cal.add("X-WR-CALNAME", title)
+    cal.add("X-WR-CALDESC", title)
+    cal.add("version", "2.0")
 
     for event in events:
         cal_event = Event()
-        cal_event.add('uid', event.slug)
-        cal_event.add('summary', event.title)
-        cal_event.add('location', event.location + ", " + event.address)
-        cal_event.add('dtstart', event.start_dt)
-        cal_event.add('dtend', event.end_dt)
+        cal_event.add("uid", event.slug)
+        cal_event.add("summary", event.title)
+        cal_event.add("location", event.location + ", " + event.address)
+        cal_event.add("dtstart", event.start_dt)
+        cal_event.add("dtend", event.end_dt)
         cal.add_component(cal_event)
 
-    return cal.to_ical(), 200, {'Content-Type': 'text/calendar'}
+    return cal.to_ical(), 200, {"Content-Type": "text/calendar"}
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run(debug=True)
