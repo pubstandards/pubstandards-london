@@ -3,6 +3,7 @@ import json
 import heapq
 from collections import OrderedDict
 import pytz
+import markupsafe
 
 import the_algorithm
 import roman
@@ -74,10 +75,10 @@ class PSEvent(object):
 
     @property
     def pretty_time_period(self):
-        return (
-            self.start_dt.strftime("%-I:%M%p")
-            + " - "
-            + self.end_dt.strftime("%-I:%M%p %Z")
+        return markupsafe.Markup(
+            self.start_dt.strftime("%-I:%M %p")
+            + "&ndash;"
+            + self.end_dt.strftime("%-I:%M %p %Z")
         )
 
     @property
