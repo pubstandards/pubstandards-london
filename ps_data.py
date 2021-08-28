@@ -21,7 +21,8 @@ PS_DESCRIPTION = "We'll meet in the upstairs room as usual."
 
 # Hiatuses where there were no automatically-generated events.
 HIATUSES = [
-    (datetime.datetime(2020, 3, 13, tzinfo=pytz.UTC), None)  # COVID-19 (ongoing)
+    # COVID-19 (ongoing). The March 2020 event didn't happen.
+    (datetime.datetime(2020, 2, 14, tzinfo=pytz.UTC), None)
 ]
 
 
