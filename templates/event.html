@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% block title %}{{event.title}}{% endblock %}
 {% block body %}
   <h1>{{event.title}}</h1>
   <p>{% if event.in_the_past %}Was{% else %}Will be{% endif %} held at <a href='http://maps.google.co.uk/maps?q={{event.address}}'>{{event.location}}</a> on {{event.pretty_date}}{% if not event.in_the_past %} from {{event.pretty_time_period}}{% endif %}</p>

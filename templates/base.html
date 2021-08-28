@@ -6,7 +6,7 @@
     <link rel='stylesheet' href='{{ ASSET_URL }}' media='screen'>
     {%- endassets %}
 
-    <title>Pub Standards London</title>
+  <title>{% if self.title() %}{% block title %}{% endblock %}{% else %}Pub Standards London{% endif %}</title>
   </head>
   <body class='{% block body_class %}{% endblock %}'>
     <div id='main'>
