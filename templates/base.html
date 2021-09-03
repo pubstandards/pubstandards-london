@@ -5,8 +5,8 @@
     {% assets output='gen/screen.%(version)s.css', 'london.css' -%}
     <link rel='stylesheet' href='{{ ASSET_URL }}' media='screen'>
     {%- endassets %}
-
-  <title>{% if self.title() %}{% block title %}{% endblock %}{% else %}Pub Standards London{% endif %}</title>
+    <title>{% if self.title() %}{% block title %}{% endblock %}{% else %}Pub Standards London{% endif %}</title>
+    {% block meta %}{% endblock %}
   </head>
   <body class='{% block body_class %}{% endblock %}'>
     <div id='main'>

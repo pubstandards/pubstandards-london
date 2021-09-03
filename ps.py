@@ -64,7 +64,7 @@ def ps_event(numeral):
     return flask.render_template("event.html", event=event)
 
 
-@app.route("/event/<slug>")
+@app.route("/event/<slug>/")
 def other_event(slug):
     event = ps_data.get_ps_event_by_slug(slug)
     if not event:

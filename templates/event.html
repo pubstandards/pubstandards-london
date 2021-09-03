@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 {% block title %}{{event.title}}{% endblock %}
+{% block meta %}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pubstandards" />
+<meta property="og:title" content="{{event.name}}" />
+<meta property="og:description" content="{{event.description|truncate(190)}}" />
+<meta property="og:image" content="https://london.pubstandards.com/static/beer_mat.jpg" />
+<meta property="og:url" content="https://london.pubstandards.com{{url_for('other_event', slug=event.slug)}}" />
+{% endblock %}
 {% block body %}
 <div itemscope itemtype="https://schema.org/Event">
   <h1 itemprop="name">{{event.title}}</h1>
