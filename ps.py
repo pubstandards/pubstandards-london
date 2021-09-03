@@ -53,7 +53,7 @@ def ics():
     return events_to_ical(ps_data.events(end=next_year), "Pub Standards Events")
 
 
-@app.route('/event/pub-standards-<regex("[ivxcdmlIVXCDML]+"):numeral>/')
+@app.route('/event/pub-standards-<regex("[ivxcdmlIVXCDML]+"):numeral>')
 def ps_event(numeral):
     try:
         number = roman.fromRoman(numeral.upper())
@@ -64,7 +64,7 @@ def ps_event(numeral):
     return flask.render_template("event.html", event=event)
 
 
-@app.route("/event/<slug>/")
+@app.route("/event/<slug>")
 def other_event(slug):
     event = ps_data.get_ps_event_by_slug(slug)
     if not event:

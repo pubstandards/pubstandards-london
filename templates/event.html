@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{event.title}}{% endblock %}
 {% block meta %}
+<link rel="canonical" href="https://london.pubstandards.com{{url_for('other_event', slug=event.slug)}}" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pubstandards" />
 <meta property="og:title" content="{{event.name}}" />
