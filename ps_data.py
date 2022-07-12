@@ -148,7 +148,9 @@ def merge_event_iters(one, two):
                 continue
             yield previous
         previous = event
-    yield previous
+
+    if previous:
+        yield previous
 
 
 def on_hiatus(event_date):
@@ -159,7 +161,6 @@ def on_hiatus(event_date):
 
 
 def events(start=None, end=None):
-    for event in merge_event_iters(
+    yield from merge_event_iters(
         get_manual_ps_events(start=start, end=end), gen_events(start=start, end=end)
-    ):
-        yield event
+    )
