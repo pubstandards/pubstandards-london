@@ -8,9 +8,9 @@
   <p class='information'>
     Add the <a href='/all.ics'>iCal feed</a> to your calendar and you'll never miss a Pub Standards event!&nbsp;<a href="https://www.google.com/calendar/render?cid=d9dc4v3ps0rmpfvsj3n1ubv8c4gkrmbu%40import.calendar.google.com#h" class="calendar-plus">+</a>
   </p>
-
-  <h2>Next, on Pub Standards…</h2>
   {% include "_covid_notice.html" %}
+  {% if event %}
+  <h2>Next, on Pub Standards…</h2>
   <ol id='next'>
     <li class='first'>
       <h3><a href='/event/{{ event.slug }}' class='nav'>{{ event.title }}</a></h3>
@@ -30,5 +30,6 @@
   </ol>
 
   <p><a href='/next' class='nav'>All upcoming Pub Standards London events…</a></p>
+  {% endif %}
   
 {% endblock %}
