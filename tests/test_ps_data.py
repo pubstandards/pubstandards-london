@@ -52,7 +52,7 @@ class ValidateData(unittest.TestCase):
 
     def test_events_in_order(self):
         datestrs = list(self.events)
-        dates = map(parse_datestr, datestrs)
+        dates = list(map(parse_datestr, datestrs))
 
         assert dates == sorted(dates), 'Events are not in date order'
         assert datestrs == sorted(datestrs), 'Events are not in strict order'
@@ -102,42 +102,42 @@ class TestLookups(unittest.TestCase):
         assert event.start_dt == dt, '%r is wrong start time' % event.start_dt
 
     def test_ps_ranges(self):
-        first_ps = ps_data.gen_events(start=utc_datetime(2005, 12, 14)).next()
+        first_ps = next(ps_data.gen_events(start=utc_datetime(2005, 12, 14)))
         self.assertStartsAt(first_ps, utc_datetime(2005, 12, 15, 18, 0))
 
-        second_ps = ps_data.gen_events(start=utc_datetime(2005, 12, 16)).next()
+        second_ps = next(ps_data.gen_events(start=utc_datetime(2005, 12, 16)))
         self.assertStartsAt(second_ps, utc_datetime(2006, 1, 12, 18, 0))
 
     def test_ps_ranges_same_day(self):
-        first_ps = ps_data.gen_events(start=utc_datetime(2005, 12, 15)).next()
+        first_ps = next(ps_data.gen_events(start=utc_datetime(2005, 12, 15)))
         self.assertStartsAt(first_ps, utc_datetime(2005, 12, 15, 18, 0))
 
     def test_manual_ps_ranges(self):
-        first_manual_ps = ps_data.get_manual_ps_events(start=utc_datetime(2006, 9, 25)).next()
+        first_manual_ps = next(ps_data.get_manual_ps_events(start=utc_datetime(2006, 9, 25)))
         self.assertStartsAt(first_manual_ps, utc_datetime(2006, 9, 25, 17, 0))
 
-        second_manual_ps = ps_data.get_manual_ps_events(start=utc_datetime(2006, 9, 26)).next()
+        second_manual_ps = next(ps_data.get_manual_ps_events(start=utc_datetime(2006, 9, 26)))
         self.assertStartsAt(second_manual_ps, utc_datetime(2007, 2, 1, 18, 0))
 
     def test_merged_ranges_algorithmic(self):
-        first_ps = ps_data.events(start=utc_datetime(2005, 12, 14)).next()
+        first_ps = next(ps_data.events(start=utc_datetime(2005, 12, 14)))
         self.assertStartsAt(first_ps, utc_datetime(2005, 12, 15, 18, 0))
 
-        second_ps = ps_data.events(start=utc_datetime(2005, 12, 16)).next()
+        second_ps = next(ps_data.events(start=utc_datetime(2005, 12, 16)))
         self.assertStartsAt(second_ps, utc_datetime(2006, 1, 12, 18, 0))
 
     def test_merged_ranges_algorithmic_same_day(self):
-        first_ps = ps_data.events(start=utc_datetime(2005, 12, 15)).next()
+        first_ps = next(ps_data.events(start=utc_datetime(2005, 12, 15)))
         self.assertStartsAt(first_ps, utc_datetime(2005, 12, 15, 18, 0))
 
     def test_merged_ranges_manual(self):
-        first_manual_ps = ps_data.events(start=utc_datetime(2006, 9, 24)).next()
+        first_manual_ps = next(ps_data.events(start=utc_datetime(2006, 9, 24)))
         self.assertStartsAt(first_manual_ps, utc_datetime(2006, 9, 25, 17, 0))
 
-        first_manual_ps = ps_data.events(start=utc_datetime(2006, 9, 25)).next()
+        first_manual_ps = next(ps_data.events(start=utc_datetime(2006, 9, 25)))
         self.assertStartsAt(first_manual_ps, utc_datetime(2006, 9, 25, 17, 0))
 
-        first_post_manual_ps = ps_data.events(start=utc_datetime(2006, 9, 26)).next()
+        first_post_manual_ps = next(ps_data.events(start=utc_datetime(2006, 9, 26)))
         self.assertStartsAt(first_post_manual_ps, utc_datetime(2006, 10, 12, 17, 0))
 
     def test_substandards_slug(self):
