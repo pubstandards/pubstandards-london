@@ -116,6 +116,8 @@ def get_ps_event_by_slug(slug):
 
 
 def gen_events(start=None, end=None):
+    if end is None:
+        end = utc_now() + datetime.timedelta(days=3650)
     gen = the_algorithm.gen_ps_dates(start)
     event = PSEvent(date=next(gen))
     while not end or event.end_dt < end:
