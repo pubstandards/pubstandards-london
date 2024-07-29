@@ -8,6 +8,7 @@ roman==3.3
 slug==2.0
 icalendar==3.12
 Flask-Assets==0.12
+Werkzeug==2.2.2
 
 -e git+https://github.com/benthor/inflect.py#egg=inflect
 -e git+https://github.com/pubstandards/the_algorithm#egg=the_algorithm
