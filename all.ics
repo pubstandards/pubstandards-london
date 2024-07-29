@@ -1566,4 +1566,11 @@ DTEND;TZID=Europe/London;VALUE=DATE-TIME:20210904T233000
 UID:park-standards
 LOCATION:Spa Fields\, 51.525452\, -0.108303
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🍸Substandards Fuck It I Need A Beer And This Works For Me
+DTSTART;TZID=Europe/London;VALUE=DATE-TIME:20240808T190000
+DTEND;TZID=Europe/London;VALUE=DATE-TIME:20240808T233000
+UID:substandards-fuck-it-i-need-a-beer-and-this-works-for-me
+LOCATION:The Earl of Essex\, 25 Danbury Street\, London\, N1 8LE
+END:VEVENT
 END:VCALENDAR
