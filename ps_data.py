@@ -142,7 +142,7 @@ def get_ps_event_by_number(number):
     date = the_algorithm.ps_date_from_offset(number)
     stringdate = date.strftime("%Y-%m-%d")
     event_data = load_ps_data().get(stringdate, {})
-    return PSEvent(event_data, date=date)
+    return PSEvent(event_data, date=datetime.datetime(date.year, date.month, date.day))
 
 
 def get_ps_event_by_slug(slug):
