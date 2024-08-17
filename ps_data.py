@@ -1,7 +1,10 @@
 import datetime
 import json
 import heapq
-from collections import OrderedDict
+from collections import (
+    namedtuple,
+    OrderedDict,
+)
 import pytz
 import markupsafe
 
@@ -12,28 +15,48 @@ from dateutil.relativedelta import relativedelta
 
 from util import combine_tz, utc_now, format_relative_time
 
-PS_LOCATION = "The Bricklayers Arms"
-PS_ADDRESS = "31 Gresse Street, London W1T 1QS"
-PS_STARTS = datetime.time(18, 0, 0)
-PS_ENDS = datetime.time(23, 30, 0)
-PS_TIMEZONE = "Europe/London"
-PS_DESCRIPTION = "We'll meet in the upstairs room as usual."
+Venue = namedtuple("Venue", ["from_date", "until_date", "name", "address", "description"])
 
 # Hiatuses where there were no automatically-generated events.
 HIATUSES = [
-    # COVID-19 (ongoing). The March 2020 event didn't happen.
-    (datetime.datetime(2020, 2, 14, tzinfo=pytz.UTC), None)
+    # COVID-19 induced. The March 2020 event didn't happen.
+    (
+        datetime.datetime(2020, 2, 14, tzinfo=pytz.UTC),
+        datetime.datetime(2024, 8, 31, tzinfo=pytz.UTC)
+    ),
 ]
 
+# Venues have dates not datetimes, but hiatuses are stored as datetimes and I'm not going
+# to change that in case it breaks everything.
+VENUES = [
+    Venue(
+        the_algorithm.FIRST_PUBSTANDARDS,
+        HIATUSES[0][0].date(),
+        "The Bricklayers Arms",
+        "31 Gresse Street, London W1T 1QS",
+        "We'll meet in the upstairs room as usual.",
+    ),
+    Venue(
+        HIATUSES[0][1].date(),
+        None,
+        "The Miller",
+        "96 Snowsfields, London SE1 3SS",
+        "Outside if it's nice, inside if it's not.",
+    )
+]
+
+PS_STARTS = datetime.time(18, 0, 0)
+PS_ENDS = datetime.time(23, 30, 0)
+PS_TIMEZONE = "Europe/London"
 
 class PSEvent(object):
     def __init__(self, data={}, date=None, manual=False):
         self.starts = PS_STARTS
         self.ends = PS_ENDS
-        self.location = PS_LOCATION
-        self.address = PS_ADDRESS
+        self.location = None
+        self.address = None
         self.name = None
-        self.description = PS_DESCRIPTION
+        self.description = None
         self.cancelled = False
         self.manual = manual  # used for merging iters
 
@@ -46,6 +69,20 @@ class PSEvent(object):
             if k in ("starts", "ends") and isinstance(v, str):
                 v = datetime.datetime.strptime(v, "%H:%M").time()
             setattr(self, k, v)
+
+        for venue in VENUES:
+            if venue.from_date < self.date.date() and (venue.until_date is None or venue.until_date > self.date.date()):
+                self.location = venue.name
+                self.address = venue.address
+                self.description = venue.description
+                break
+        if self.location is None:
+            # For some reason couldn't find it, use last venue in the list in the hope
+            # that "current" is more helpful than blank or exploding.
+            venue = VENUES[-1]
+            self.location = venue.name
+            self.address = venue.address
+            self.description = venue.description
 
         self.tzinfo = pytz.timezone(PS_TIMEZONE)
 
