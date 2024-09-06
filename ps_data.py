@@ -75,7 +75,8 @@ class PSEvent(object):
                 if venue.from_date < self.date.date() and (venue.until_date is None or venue.until_date > self.date.date()):
                     self.location = venue.name
                     self.address = venue.address
-                    self.description = venue.description
+                    if self.description is None:
+                        self.description = venue.description
                     break
         if self.location is None:
             # For some reason couldn't find it, use last venue in the list in the hope
