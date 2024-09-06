@@ -70,12 +70,13 @@ class PSEvent(object):
                 v = datetime.datetime.strptime(v, "%H:%M").time()
             setattr(self, k, v)
 
-        for venue in VENUES:
-            if venue.from_date < self.date.date() and (venue.until_date is None or venue.until_date > self.date.date()):
-                self.location = venue.name
-                self.address = venue.address
-                self.description = venue.description
-                break
+        if self.location is None:
+            for venue in VENUES:
+                if venue.from_date < self.date.date() and (venue.until_date is None or venue.until_date > self.date.date()):
+                    self.location = venue.name
+                    self.address = venue.address
+                    self.description = venue.description
+                    break
         if self.location is None:
             # For some reason couldn't find it, use last venue in the list in the hope
             # that "current" is more helpful than blank or exploding.
