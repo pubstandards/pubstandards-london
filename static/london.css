@@ -111,17 +111,13 @@ header em {
     margin-block-start: 1rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h2, h3, h4, h5, h6 {
     color: #690;
     font-family: 'Hoefler Text', 'Georgia', serif;
-    margin-bottom: 1em;
-    margin-top: 1.5em;
+    margin-block-end: 0;
+    margin-block-start: 1.5em !important;
 }
 
-.homepage h2 {
-    font-size: 2em;
-    margin: 1em 0;
-}
 #next h3 {
     margin: 0;
 }

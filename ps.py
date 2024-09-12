@@ -79,7 +79,7 @@ def keep_in_touch():
 
 @app.route("/about")
 def about():
-    return flask.render_template("about.html")
+    return flask.render_template("about.html", venues=ps_data.VENUES)
 
 
 def next_events():
