@@ -2,6 +2,7 @@
 <html lang='en-gb'>
   <head>
     <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% assets output='gen/screen.%(version)s.css', 'london.css' -%}
     <link rel='stylesheet' href='{{ ASSET_URL }}' media='screen'>
     {%- endassets %}
@@ -11,11 +12,7 @@
   <body class='{% block body_class %}{% endblock %}'>
     <div id='main'>
       <header>
-        <h1>
-          {% if not homepage %}<a href='/'>{% endif %}
-            <img src='/static/beer_mat.jpg'><b>Pub Standards London</b>
-          {% if not homepage %}</a>{% endif %}
-        </h1>
+        <h1><a href="/"><img id="logo" src="/static/beer_mat.jpg"></a></h1>
         <p>
           The infamous <em>beer-infused</em>, casual, social, warm, raucous, fine,
           dandy, monthly <em>London</em> meet-up for <em>web folk</em>.
