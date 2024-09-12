@@ -49,7 +49,8 @@ def previous():
 @app.route("/next.ics")
 @app.route("/all.ics")
 def ics():
-    return events_to_ical(next_events(), "Pub Standards Events")
+    next_year = utc_now() + datetime.timedelta(weeks=52)
+    return events_to_ical(ps_data.events(end=next_year), "Pub Standards Events")
 
 
 @app.route('/event/pub-standards-<regex("[ivxcdmlIVXCDML]+"):numeral>')
