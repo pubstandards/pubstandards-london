@@ -9,13 +9,12 @@ If you're adding more information about an event, just use the same date as the 
 
 How to hack on this website
 ---------------------------
+* Install [uv](https://docs.astral.sh/uv/)
 * Check out the repository
-* ```make init```
-* ```make reqs```
-* ```make```
+* Start the dev server with `uv run ./ps.py`
 * Open a browser to [http://localhost:5000](http://localhost:5000)
 * Hack away!
-* Prod a PS regular (Norm, James, Jonty, etc) for commit access, or fork
-* Commit, open a pull request, then prod someone else to check it before merging
+* Run the tests with `uv pytest .`
+* Open a pull request, then prod someone else to check it before merging
 
 The code and templates will live reload, and Flask will drop you into a lovely interactive exception inspector if you do a bad.

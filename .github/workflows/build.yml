@@ -1,40 +1,49 @@
 name: Build and Deploy
-on: 
+
+on:
   push:
+    branches:
+      - main
   schedule:
     - cron: '0 * * * *'
   workflow_dispatch:
+
 jobs:
-  build-and-deploy:
+  test:
+    uses: ./.github/workflows/test.yml
+
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v2
+
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9' 
+          python-version-file: "pyproject.toml"
+
       - name: Build
         run: |
-          pip install -r ./requirements.txt
-          python ./ps.py &
+          uv run python ./ps.py &
           while ! nc -z localhost 5000; do sleep 0.1; done; # Wait for server to start
           mkdir output
           wget -q -P output -nH --mirror --adjust-extension --page-requisites --no-parent http://127.0.0.1:5000
           kill %1 # Kill the python server
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          GIT_CONFIG_NAME: pubstandards-london
-          GIT_CONFIG_EMAIL: jonty@jonty.co.uk
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: output
+          path: output
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4

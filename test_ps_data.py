@@ -1,12 +1,14 @@
 import unittest
 import ps_data
+from zoneinfo import ZoneInfo
+from util import combine_tz
 from test_util import parse_datestr, is_algorithmic_ps_date, utc_datetime
-from datetime import datetime, timedelta
-import pytz
+from datetime import datetime, timedelta, timezone
+
 
 class ValidateData(unittest.TestCase):
-    required_fields = ['name', 'location', 'address']
-    optional_fields = ['description', 'starts', 'ends', 'cancelled']
+    required_fields = ["name", "location", "address"]
+    optional_fields = ["description", "starts", "ends", "cancelled"]
 
     def setUp(self):
         self.events = ps_data.load_ps_data()
@@ -16,14 +18,17 @@ class ValidateData(unittest.TestCase):
 
         for datestr, event in self.events.items():
             if is_algorithmic_ps_date(datestr):
-                print('Checking override event %s: %s' % (datestr, event))
+                print("Checking override event %s: %s" % (datestr, event))
             else:
-                print('Checking additional event %s: %s' % (datestr, event))
+                print("Checking additional event %s: %s" % (datestr, event))
 
             checked_fields = set()
             for field in event:
-                assert field in valid_fields, '%r is not valid (%s)' % (field, valid_fields)
-                assert field not in checked_fields, 'Duplicate field %r' % field
+                assert field in valid_fields, "%r is not valid (%s)" % (
+                    field,
+                    valid_fields,
+                )
+                assert field not in checked_fields, "Duplicate field %r" % field
                 checked_fields.add(field)
 
             if is_algorithmic_ps_date(datestr):
@@ -31,7 +36,9 @@ class ValidateData(unittest.TestCase):
 
             else:
                 for field in self.required_fields:
-                    assert field in checked_fields, 'Required field %r missing from %r' % (field, checked_fields)
+                    assert (
+                        field in checked_fields
+                    ), "Required field %r missing from %r" % (field, checked_fields)
 
     def test_name_unique(self):
         # Names have to be unique as they're part of the URL
@@ -39,39 +46,37 @@ class ValidateData(unittest.TestCase):
         seen_names = set()
         for datestr, event in self.events.items():
             if is_algorithmic_ps_date(datestr):
-                if 'name' in event:
-                    name = event['name']
-                    assert 'Pub Standards' in name, 'Unexpected name %s' % name
+                if "name" in event:
+                    name = event["name"]
+                    assert "Pub Standards" in name, "Unexpected name %s" % name
 
             else:
-                name = event['name']
-                assert name is not None, 'Manual event has no name'
-                assert name not in seen_names, 'Name %r is not unique' % name
-                assert not name.startswith('Pub Standards '), 'Attempt to override name %r' % name
+                name = event["name"]
+                assert name is not None, "Manual event has no name"
+                assert name not in seen_names, "Name %r is not unique" % name
+                assert not name.startswith("Pub Standards "), (
+                    "Attempt to override name %r" % name
+                )
                 seen_names.add(name)
 
     def test_events_in_order(self):
         datestrs = list(self.events)
         dates = list(map(parse_datestr, datestrs))
 
-        assert dates == sorted(dates), 'Events are not in date order'
-        assert datestrs == sorted(datestrs), 'Events are not in strict order'
+        assert dates == sorted(dates), "Events are not in date order"
+        assert datestrs == sorted(datestrs), "Events are not in strict order"
 
     def test_invalid_times(self):
-        def combine_tz(date, time, tzinfo):
-            dt = datetime.combine(date, time)
-            return tzinfo.localize(dt, is_dst=None)
-
         for datestr, event in self.events.items():
 
-            event_date = datetime.strptime(datestr, '%Y-%m-%d')
-            tzinfo = pytz.timezone('Europe/London')
-            if 'starts' in event:
-                starts = datetime.strptime(event['starts'], '%H:%M').time()
+            event_date = datetime.strptime(datestr, "%Y-%m-%d")
+            tzinfo = ZoneInfo("Europe/London")
+            if "starts" in event:
+                starts = datetime.strptime(event["starts"], "%H:%M").time()
                 combine_tz(event_date, starts, tzinfo)
 
-            if 'ends' in event:
-                ends = datetime.strptime(event['ends'], '%H:%M').time()
+            if "ends" in event:
+                ends = datetime.strptime(event["ends"], "%H:%M").time()
                 combine_tz(event_date, ends, tzinfo)
 
 
@@ -80,7 +85,7 @@ class TestLookups(unittest.TestCase):
     def test_events_construct(self):
         manual_events = list(ps_data.get_manual_ps_events())
 
-        next_year = datetime.utcnow().replace(tzinfo=pytz.UTC) + timedelta(weeks=52)
+        next_year = datetime.now(timezone.utc) + timedelta(weeks=52)
         # Add a minute to the last manual_event because events uses <
         end = max(next_year, manual_events[-1].end_dt + timedelta(minutes=1))
         all_events = list(ps_data.events(end=end))
@@ -93,13 +98,13 @@ class TestLookups(unittest.TestCase):
 
     def test_override(self):
         ps_100 = ps_data.get_ps_event_by_number(100)
-        assert 'ONE HUNDREDTH' in ps_100.description
+        assert "ONE HUNDREDTH" in ps_100.description
 
     # For now, don't test .date, as it's either date() or datetime(),
     # depending on whether the event is from the algorithm or not
 
     def assertStartsAt(self, event, dt):
-        assert event.start_dt == dt, '%r is wrong start time' % event.start_dt
+        assert event.start_dt == dt, "%r is wrong start time" % event.start_dt
 
     def test_ps_ranges(self):
         first_ps = next(ps_data.gen_events(start=utc_datetime(2005, 12, 14)))
@@ -113,10 +118,14 @@ class TestLookups(unittest.TestCase):
         self.assertStartsAt(first_ps, utc_datetime(2005, 12, 15, 18, 0))
 
     def test_manual_ps_ranges(self):
-        first_manual_ps = next(ps_data.get_manual_ps_events(start=utc_datetime(2006, 9, 25)))
+        first_manual_ps = next(
+            ps_data.get_manual_ps_events(start=utc_datetime(2006, 9, 25))
+        )
         self.assertStartsAt(first_manual_ps, utc_datetime(2006, 9, 25, 17, 0))
 
-        second_manual_ps = next(ps_data.get_manual_ps_events(start=utc_datetime(2006, 9, 26)))
+        second_manual_ps = next(
+            ps_data.get_manual_ps_events(start=utc_datetime(2006, 9, 26))
+        )
         self.assertStartsAt(second_manual_ps, utc_datetime(2007, 2, 1, 18, 0))
 
     def test_merged_ranges_algorithmic(self):
@@ -141,46 +150,51 @@ class TestLookups(unittest.TestCase):
         self.assertStartsAt(first_post_manual_ps, utc_datetime(2006, 10, 12, 17, 0))
 
     def test_substandards_slug(self):
-        ss_pista = ps_data.get_ps_event_by_slug('substandards-pista')
+        ss_pista = ps_data.get_ps_event_by_slug("substandards-pista")
         self.assertStartsAt(ss_pista, utc_datetime(2007, 2, 1, 18, 0))
 
-        assert ps_data.get_ps_event_by_slug('substandards-Pista') is None, 'Invalid slug matched'
+        assert (
+            ps_data.get_ps_event_by_slug("substandards-Pista") is None
+        ), "Invalid slug matched"
 
     def test_substandards_slug_with_hyphens(self):
-        first_ss = ps_data.get_ps_event_by_slug('mid-pub-standards-non-pub-standards-pub-standards')
+        first_ss = ps_data.get_ps_event_by_slug(
+            "mid-pub-standards-non-pub-standards-pub-standards"
+        )
         self.assertStartsAt(first_ss, utc_datetime(2006, 9, 25, 17, 0))
 
-    @unittest.skip('Currently no way to test PS slugs')
+    @unittest.skip("Currently no way to test PS slugs")
     def test_manual_ps_slugs(self):
-        ps_65 = ps_data.get_ps_event_by_slug('pubstandards-lxv')
+        ps_65 = ps_data.get_ps_event_by_slug("pubstandards-lxv")
         self.assertStartsAt(ps_65, utc_datetime(2005, 12, 14, 18, 0))
 
-        ps_100 = ps_data.get_ps_event_by_slug('pubstandards-c')
+        ps_100 = ps_data.get_ps_event_by_slug("pubstandards-c")
         self.assertStartsAt(ps_100, utc_datetime(2014, 3, 13, 18, 0))
 
     def test_cancelled_event(self):
-        ss_pista = ps_data.get_ps_event_by_slug('substandards-pista')
+        ss_pista = ps_data.get_ps_event_by_slug("substandards-pista")
         assert ss_pista.cancelled is False
 
-        ss_parklife = ps_data.get_ps_event_by_slug('substandards-parklife')
+        ss_parklife = ps_data.get_ps_event_by_slug("substandards-parklife")
         assert ss_parklife.cancelled is True
 
     def assertAllEqual(self, items):
-        assert len(set(list(items))) == 1, 'Not all items are equal: %r' % items
+        assert len(set(list(items))) == 1, "Not all items are equal: %r" % items
 
     def test_around_dst(self):
         def get_ev_data(ev):
-            return (ev.start_dt,
-                    ev.end_dt,
-                    ev.slug,
-                    ev.pretty_date,
-                    ev.pretty_time_period,
-                    )
+            return (
+                ev.start_dt,
+                ev.end_dt,
+                ev.slug,
+                ev.pretty_date,
+                ev.pretty_time_period,
+            )
 
         def check_events_for_starts(ev_getter, starts):
             ev_gens = map(ev_getter, starts)
             ev_lists = map(list, ev_gens)
-            self.assertAllEqual(len(l) for l in ev_lists)
+            self.assertAllEqual(len(ev_list) for ev_list in ev_lists)
 
             for evs in zip(*ev_lists):
                 ev_datas = map(get_ev_data, evs)
@@ -217,4 +231,3 @@ class TestLookups(unittest.TestCase):
 
         check_event_queries_for_starts(begin_dst)
         check_event_queries_for_starts(end_dst)
-

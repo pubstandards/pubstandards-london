@@ -1,0 +1,29 @@
+[project]
+name = "pubstandards-london"
+version = "0.1.0"
+description = "The website for london.pubstandards.com"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "gunicorn>=23.0.0",
+    "flask>=3.0.3",
+    "python-dateutil==2.8.2",
+    "roman>=4.2",
+    "slug==2.0",
+    "icalendar>=5.0.13",
+    "flask-assets>=2.1.0",
+    "the-algorithm",
+    "inflect>=7.4.0",
+]
+
+[tool.uv]
+dev-dependencies = ["pytest>=8.3.3", "ruff>=0.6.4"]
+
+[tool.uv.sources]
+the-algorithm = { git = "https://github.com/pubstandards/the_algorithm" }
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E", "F"]

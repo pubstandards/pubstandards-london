@@ -49,8 +49,7 @@ def previous():
 @app.route("/next.ics")
 @app.route("/all.ics")
 def ics():
-    next_year = utc_now() + datetime.timedelta(weeks=5200)
-    return events_to_ical(ps_data.events(end=next_year), "Pub Standards Events")
+    return events_to_ical(next_events(), "Pub Standards Events")
 
 
 @app.route('/event/pub-standards-<regex("[ivxcdmlIVXCDML]+"):numeral>')
@@ -84,7 +83,7 @@ def about():
 
 def next_events():
     now = utc_now()
-    future = now + datetime.timedelta(weeks=5200)
+    future = now + datetime.timedelta(weeks=52)
     return ps_data.events(start=now, end=future)
 
 
@@ -98,7 +97,7 @@ def events_to_ical(events, title):
     for event in events:
         url = f"https://london.pubstandards.com/event/{event.slug}"
         cal_event = Event()
-        cal_event.add("uid", "%s-%s" % (event.slug, event.date.date()))
+        cal_event.add("uid", "%s-%s" % (event.slug, event.date))
         cal_event.add("summary", event.title)
         cal_event.add("description", f"{event.description}\n\n{url}")
         cal_event.add("url", url)
