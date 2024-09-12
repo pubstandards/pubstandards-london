@@ -21,6 +21,9 @@ def format_relative_time(relative):
     )
     formatted = [p.no(date_part, value) for (date_part, value) in date_parts if value]
 
+    if len(formatted) < 2:
+        return "Happening soon"
+
     rest, tail = formatted[:-1], formatted[-1]
 
     if rest:
