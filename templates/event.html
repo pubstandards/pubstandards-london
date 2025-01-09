@@ -5,7 +5,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pubstandards" />
 <meta property="og:title" content="{{event.title}}" />
-{% if event.description %}<meta property="og:description" content="{{event.description|truncate(190)}}" />{% endif %}
+<meta property="og:description" content="{{event.pretty_date}} at {{event.location}}{% if event.description %}: {{event.description|truncate(190)}}{% endif %}" />
 <meta property="og:image" content="https://london.pubstandards.com/static/beer_mat.jpg" />
 <meta property="og:url" content="https://london.pubstandards.com{{url_for('other_event', slug=event.slug)}}" />
 {% endblock %}
