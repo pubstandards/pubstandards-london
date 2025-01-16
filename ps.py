@@ -84,7 +84,7 @@ def about():
 
 def next_events():
     now = utc_now()
-    future = now + datetime.timedelta(weeks=52)
+    future = now + datetime.timedelta(weeks=52*10)
     return ps_data.events(start=now, end=future)
 
 
