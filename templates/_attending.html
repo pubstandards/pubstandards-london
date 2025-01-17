@@ -1,0 +1,28 @@
+{% macro render_attending(event, description, type) -%}
+    {% set attendees = event.get_attendance(type) %}
+    {% if attendees %}
+        <li>{{description}}:
+            {% for attendee in attendees %}
+                <a href="https://github.com/{{ attendee["username"] }}"><img src="{{ attendee["avatar_url"] }}&s=20" title="{{ attendee["name"] }} ({{ attendee["username"] }})"></a>
+            {% endfor %}
+        </li>
+    {% endif %}
+{% endmacro %}
+
+{% macro render_attendance_block(event) -%}
+    {% if event.attendance_issue_url %}
+      <div class="description" itemprop="description">
+        <h2>{% if event.in_the_past %}Who came?{% else %}Who's coming?{% endif %}</h2>
+
+        <ul style="margin: 10px">
+          {{ render_attending(event, "👍 Attending", "+1") }}
+          {{ render_attending(event, "👀 Interested", "eyes") }}
+          {{ render_attending(event, "👎 Not attending", "-1") }}
+        </ul>
+      </div>
+
+      {% if not event.in_the_past %}
+      <p>RSVP by reacting to <a href="{{ event.attendance_issue_url }}">the {{ event.title }} Github issue</a> 🎟️</p>
+      {% endif %}
+    {% endif %}
+{% endmacro %}

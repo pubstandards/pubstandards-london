@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% from "_map.html" import map %}
 {% from "_map_links.html" import osm_link, gmaps_link %}
+{% from "_attending.html" import render_attendance_block %}
 
 {% block body_class %}homepage{% endblock %}
 {% block body %}
@@ -18,13 +19,13 @@
       <h3><a href='/event/{{ event.slug }}' class='nav'>{{ event.title }}</a></h3>
       <p class='about'>
         <span class='time-until'>{{event.time_until}}</span>
-        {{event.pretty_date}} at <a href='http://maps.google.co.uk/maps?q={{event.address}}'>{{event.location}}</a> ({{ event.pretty_time_period }})      
+        Will be held at <strong>{{event.location}}</strong>, {{ event.address.split(",")[-1] }}<br/>
+        On {{event.pretty_date}} ({{ event.pretty_time_period }})
       </p>
       {% if coords %}
         {{ map(coords) }}
-        <p>View on:
-          {{osm_link(coords)}},
-          {{gmaps_link(coords)}}.
+        <p style="margin-bottom: 15px">
+          <small>View on: {{osm_link(coords)}}, {{gmaps_link(event.location_and_address)}}</small>
         </p>
       {% endif %}
       {% if event.description %}
@@ -32,7 +33,6 @@
       {% endif %}
     </li>
   </ol>
-
-  <p><a href='/next' class='nav'>All upcoming Pub Standards London events…</a></p>
+  {{ render_attendance_block(event) }}
   {% endif %}
 {% endblock %}

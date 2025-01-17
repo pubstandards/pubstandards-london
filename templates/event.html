@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% from "_map.html" import map %}
 {% from "_map_links.html" import osm_link, gmaps_link %}
+{% from "_attending.html" import render_attendance_block %}
 
 {% block title %}{{event.title}}{% endblock %}
 {% block meta %}
@@ -16,20 +17,19 @@
 {% set coords = event.coords()%}
 <div itemscope itemtype="https://schema.org/Event">
   <h2 itemprop="name">{{event.title}}</h2>
-  <p>{% if event.in_the_past %}Was{% else %}Will be{% endif %} held at
+  <p class="about">{% if event.in_the_past %}Was{% else %}Will be{% endif %} held at
     <span itemprop="location" itemscope itemtype="https://schema.org/Place">
       <strong><span itemprop="name">{{event.location}}</span></strong>, <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-        <span itemprop="streetAddress">{{event.address}}</span>
+        <span itemprop="streetAddress">{{event.address.split(",")[-1]}}</span>
       </span>
     </span>
-    on <time itemprop="startDate" datetime="{{event.start_dt.isoformat()}}">{{event.pretty_date}}{% if not event.in_the_past %}
-        from {{event.pretty_time_period}}{% endif %}</time>
+    <br/>
+    On <time itemprop="startDate" datetime="{{event.start_dt.isoformat()}}">{{event.pretty_date}}{% if not event.in_the_past %} ({{event.pretty_time_period}}){% endif %}</time>
   </p>
   {% if coords %}
     {{ map(coords) }}
-    <p>View on:
-      {{osm_link(coords)}},
-      {{gmaps_link(coords)}}.
+    <p style="margin-bottom: 15px">
+      <small>View on: {{osm_link(coords)}}, {{gmaps_link(event.location_and_address)}}</small>
     </p>
   {% endif %}
   {% if event.description %}
@@ -37,5 +37,6 @@
     {{ event.description|safe }}
     </div>
   {% endif %}
+  {{ render_attendance_block(event) }}
 </div>
 {% endblock %}

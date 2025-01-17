@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -20,9 +20,6 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout
@@ -47,6 +44,12 @@ jobs:
         with:
           file_pattern: "locations.json"
 
+      - name: Fetch github issue reactions for RSVPs
+        run: |
+          uv run python ./fetch_github_issues.py # This outputs attendance reactions for the website to read in the next step - we do not commit them to avoid storing this data in git perpetually
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build
         run: |
           uv run python ./ps.py &
@@ -63,6 +66,8 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4

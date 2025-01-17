@@ -15,6 +15,7 @@ dependencies = [
     "the-algorithm",
     "inflect>=7.4.0",
     "httpx>=0.28.1",
+    "pygithub>=2.5.0",
 ]
 
 [tool.uv]

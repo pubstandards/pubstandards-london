@@ -102,6 +102,11 @@ def events_to_ical(events, title):
 
     for event in events:
         url = f"https://london.pubstandards.com/event/{event.slug}"
+        description = f"{event.description}\n\n{url}"
+        issue_url = event.attendance_issue_url
+        if issue_url:
+            description += f"\n\nRSVP: {issue_url}"
+
         cal_event = Event()
         cal_event.add("uid", "%s-%s" % (event.slug, event.date))
         cal_event.add("summary", event.title)

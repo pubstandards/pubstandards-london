@@ -3,5 +3,10 @@
 {%- endmacro -%}
 
 {% macro gmaps_link(coords) -%}
-<a itemprop="hasMap" href="http://maps.google.co.uk/maps?q={{coords.lat}},{{coords.lon}}">Google Maps</a>
+{%if coords is string %}
+    {% set q_string = coords %}
+{% else %}
+    {% set q_string = coords.lat + "," + coords.lon %}
+{% endif %}
+<a itemprop="hasMap" href="http://maps.google.co.uk/maps?q={{q_string}}">Google Maps</a>
 {%- endmacro -%}
