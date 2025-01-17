@@ -133,6 +133,17 @@ class PSEvent(object):
 
         return format_relative_time(relative)
 
+    def json(self):
+        return {
+            "title": self.title,
+            "slug": self.slug,
+            "date": self.date.isoformat(),
+            "time": self.starts.isoformat(),
+            "pretty_date": self.pretty_date,
+            "location": self.location,
+            "address": self.address,
+        }
+
 
 def load_ps_data():
     return json.load(open("ps_data.json"), object_pairs_hook=OrderedDict)

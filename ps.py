@@ -53,6 +53,11 @@ def ics():
     return events_to_ical(ps_data.events(end=next_year), "Pub Standards Events")
 
 
+@app.route("/next.json")
+def next_json():
+    return flask.jsonify([event.json() for event in next_events()])
+
+
 @app.route('/event/pub-standards-<regex("[ivxcdmlIVXCDML]+"):numeral>')
 def ps_event(numeral):
     try:
@@ -84,7 +89,7 @@ def about():
 
 def next_events():
     now = utc_now()
-    future = now + datetime.timedelta(weeks=52*10)
+    future = now + datetime.timedelta(weeks=52 * 10)
     return ps_data.events(start=now, end=future)
 
 
