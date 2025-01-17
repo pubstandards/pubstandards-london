@@ -346,5 +346,12 @@
         "address": "25 Danbury Street, London, N1 8LE",
         "description": "Look, it's been ages, I need a beer. I miss you all so come and say hello. We'll be out the front, and if we're not out the front ...out the back.",
         "starts": "19:00"
+    },
+    "2025-01-30": {
+        "name": "Substandards Northerly",
+        "location": "The Westbury",
+        "address": "57 Westbury Avenue, London, N22 6SA",
+        "description": "Apparently they serve beer outside Zone 1.",
+        "starts": "19:00"
     }
 }
