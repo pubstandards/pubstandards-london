@@ -1,0 +1,7 @@
+{% macro osm_link(coords) -%}
+<a itemprop="hasMap" href="https://www.openstreetmap.org/?mlat={{coords.lat}}&mlon={{coords.lon}}#map=16/{{coords.lat}}/{{coords.lon}}"><span itemprop="name">OpenStreetMap</span></a>
+{%- endmacro -%}
+
+{% macro gmaps_link(coords) -%}
+<a itemprop="hasMap" href="http://maps.google.co.uk/maps?q={{coords.lat}},{{coords.lon}}">Google Maps</a>
+{%- endmacro -%}

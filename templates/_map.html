@@ -1,0 +1,18 @@
+{% macro map(coords) -%}
+    <div class='map' id='map'></div>
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js" defer="true"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let coords = {{ coords|tojson }}
+            const map = new maplibregl.Map({
+                style: 'https://tiles.openfreemap.org/styles/bright',
+                center: coords,
+                zoom: 16,
+                container: 'map',
+            })
+            new maplibregl.Marker()
+                .setLngLat(coords)
+                .addTo(map)
+        })
+    </script>
+{% endmacro -%}

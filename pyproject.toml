@@ -14,6 +14,7 @@ dependencies = [
     "flask-assets>=2.1.0",
     "the-algorithm",
     "inflect>=7.4.0",
+    "httpx>=0.28.1",
 ]
 
 [tool.uv]

@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% from "_map.html" import map %}
+{% from "_map_links.html" import osm_link, gmaps_link %}
+
 {% block title %}{{event.title}}{% endblock %}
 {% block meta %}
 <link rel="canonical" href="https://london.pubstandards.com{{url_for('other_event', slug=event.slug)}}" />
@@ -10,24 +13,29 @@
 <meta property="og:url" content="https://london.pubstandards.com{{url_for('other_event', slug=event.slug)}}" />
 {% endblock %}
 {% block body %}
+{% set coords = event.coords()%}
 <div itemscope itemtype="https://schema.org/Event">
   <h2 itemprop="name">{{event.title}}</h2>
   <p>{% if event.in_the_past %}Was{% else %}Will be{% endif %} held at
     <span itemprop="location" itemscope itemtype="https://schema.org/Place">
-      <a itemprop="hasMap" href='http://maps.google.co.uk/maps?q={{event.address}}'><span itemprop="name">{{event.location}}</span></a>
+      <strong><span itemprop="name">{{event.location}}</span></strong>, <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+        <span itemprop="streetAddress">{{event.address}}</span>
+      </span>
     </span>
     on <time itemprop="startDate" datetime="{{event.start_dt.isoformat()}}">{{event.pretty_date}}{% if not event.in_the_past %}
         from {{event.pretty_time_period}}{% endif %}</time>
   </p>
-  {% if event.address %}
-    <p class="map">
-        <iframe width="508" height="250" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{event.address}}&key=AIzaSyB6e6ARbWZOETgBrJ54j3R0z7p93UzhYMQ"></iframe>
+  {% if coords %}
+    {{ map(coords) }}
+    <p>View on:
+      {{osm_link(coords)}},
+      {{gmaps_link(coords)}}.
     </p>
-    {% if event.description %}
-      <div class="description" itemprop="description">
-      {{ event.description|safe }}
-      </div>
-    {% endif %}
+  {% endif %}
+  {% if event.description %}
+    <div class="description" itemprop="description">
+    {{ event.description|safe }}
+    </div>
   {% endif %}
 </div>
 {% endblock %}

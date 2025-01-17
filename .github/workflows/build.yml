@@ -20,6 +20,10 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,6 +37,15 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version-file: "pyproject.toml"
+
+      - name: Geocode
+        run: |
+          uv run python ./geocode.py
+      
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: "locations.json"
 
       - name: Build
         run: |

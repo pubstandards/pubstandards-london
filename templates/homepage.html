@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% from "_map.html" import map %}
+{% from "_map_links.html" import osm_link, gmaps_link %}
 
 {% block body_class %}homepage{% endblock %}
 {% block body %}
@@ -9,6 +11,7 @@
     Add the <a href='/all.ics'>iCal feed</a> to your calendar and you'll never miss a Pub Standards event!&nbsp;<a href="https://www.google.com/calendar/render?cid=d9dc4v3ps0rmpfvsj3n1ubv8c4gkrmbu%40import.calendar.google.com#h" class="calendar-plus">+</a>
   </p>
   {% if event %}
+  {% set coords = event.coords() %}
   <h2>Next, on Pub Standards…</h2>
   <ol id='next'>
     <li class='first'>
@@ -17,18 +20,19 @@
         <span class='time-until'>{{event.time_until}}</span>
         {{event.pretty_date}} at <a href='http://maps.google.co.uk/maps?q={{event.address}}'>{{event.location}}</a> ({{ event.pretty_time_period }})      
       </p>
-      {% if event.address %}
-        <p class='map'>
-            <iframe frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{event.address}}&key=AIzaSyB6e6ARbWZOETgBrJ54j3R0z7p93UzhYMQ"></iframe>
+      {% if coords %}
+        {{ map(coords) }}
+        <p>View on:
+          {{osm_link(coords)}},
+          {{gmaps_link(coords)}}.
         </p>
-        {% if event.description %}
+      {% endif %}
+      {% if event.description %}
           <p class='description'>{{ event.description|safe }}</p>
-        {% endif %}
       {% endif %}
     </li>
   </ol>
 
   <p><a href='/next' class='nav'>All upcoming Pub Standards London events…</a></p>
   {% endif %}
-  
 {% endblock %}

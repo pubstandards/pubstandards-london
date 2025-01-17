@@ -1,0 +1,219 @@
+{
+    "The Bricklayers Arms, 31 Gresse Street, London W1T 1QS": {
+        "lon": "-0.1333706",
+        "lat": "51.517691"
+    },
+    "De Hems, 11 Macclesfield Street, London W1D 5BW": {
+        "lon": "-0.13117813652658272",
+        "lat": "51.51211415"
+    },
+    "The Porterhouse, 21-22 Maiden Lane, London WC2E 7NA": {
+        "lon": "-0.12341049089053806",
+        "lat": "51.51025265"
+    },
+    "The Cock Tavern, 27 Great Portland Street, London W1W 8QE": {
+        "lon": "-0.14139160351513325",
+        "lat": "51.51675935"
+    },
+    "The Harp, 47 Chandos Place, London WC2N 4HS": {
+        "lon": "-0.12591757838483175",
+        "lat": "51.5097239"
+    },
+    "The Crown, 51 New Oxford Street, London WC1A 1BL": {
+        "lon": "-0.12640976494565276",
+        "lat": "51.51686325"
+    },
+    "One Tun, 58 Goodge Street, London W1T 4ND": {
+        "lon": "-0.13669565677496343",
+        "lat": "51.519135250000005"
+    },
+    "Ye Olde Cheshire Cheese, 145 Fleet Street, London EC4A 2BU": {
+        "lon": "-0.10717614909398387",
+        "lat": "51.51433295"
+    },
+    "The Crown and Two Chairman, 31-32 Dean Street, London W1D 3SB": {
+        "lon": "-0.13243930588777703",
+        "lat": "51.5138574"
+    },
+    "John Snow, 39 Broadwick Street, London W1F 9QJ": {
+        "lon": "-0.1365932876191383",
+        "lat": "51.513277349999996"
+    },
+    "Blue Posts, 81 Newman Street, London W1T 3ET": {
+        "lon": "-0.13545869765452084",
+        "lat": "51.51698365"
+    },
+    "Princess Louise, 208 High Holborn, London WC1V 7EP": {
+        "lon": "-0.12155920126748508",
+        "lat": "51.51730185"
+    },
+    "Newman Arms, 23 Rathbone Street, London W1T 1NQ": {
+        "lon": "-0.13525055346885673",
+        "lat": "51.518127"
+    },
+    "Cittie of York, 22 High Holborn, London WC1V 6BN": {
+        "lon": "-0.1128421238994578",
+        "lat": "51.5184455"
+    },
+    "Nordic Bar, 25 Newman Street, London W1T 1PN": {
+        "lon": "-0.135695",
+        "lat": "51.5178561"
+    },
+    "The Crooked Surgeon, 5 Lisle Street, London WC2H 7BG": {
+        "lon": "-0.13145090000000326",
+        "lat": "51.511308650000004"
+    },
+    "Glasshouse Stores, 55 Brewer Street, London W1F 9UJ": {
+        "lon": "-0.13534567096644307",
+        "lat": "51.51148555"
+    },
+    "Duke of Argyll, 37 Brewer Street, London W1F 0RY": {
+        "lon": "-0.13468380291327883",
+        "lat": "51.5118538"
+    },
+    "The White Horse, 45 Rupert Street, London W1D 7PJ": {
+        "lon": "-0.13363306245036066",
+        "lat": "51.51221417084282"
+    },
+    "The Angel, 61-62 St Giles High Street, London WC2H 8LH": {
+        "lon": "-0.12783982814894382",
+        "lat": "51.515489450000004"
+    },
+    "The White Hart, 191 Drury Lane, London WC2B 5QD": {
+        "lon": "-0.1240467574050024",
+        "lat": "51.5162027"
+    },
+    "The Lyceum, 354 Strand, London WC2R 0HS": {
+        "lon": "-0.11972445198413034",
+        "lat": "51.51129"
+    },
+    "Salisbury, 90 St Martin's Lane, London WC2N 4AP": {
+        "lon": "-0.12722892064239388",
+        "lat": "51.5109263"
+    },
+    "Ship and Shovell, 1-3 Craven Passage, London WC2N 5PH": {
+        "lon": "-0.12464495",
+        "lat": "51.50767125"
+    },
+    "Green Man & French Horn, 54 Saint Martin's Lane, London WC2N 4EA": {
+        "lon": "-0.12676775",
+        "lat": "51.51083365"
+    },
+    "Red Lion, 14 Kingly Street, London W1B 5PR": {
+        "lon": "-0.13914551857956964",
+        "lat": "51.512680149999994"
+    },
+    "Yorkshire Grey, 46 Langham Street, London W1W 7AX": {
+        "lon": "-0.14136111360374548",
+        "lat": "51.51892605"
+    },
+    "The Green Man, 36 Riding House Street, London W1W 7EP": {
+        "lon": "-0.1394807432232524",
+        "lat": "51.5189377"
+    },
+    "The Crown and Sugarloaf, 98-99 Fleet Street, London EC4Y 1DE": {
+        "lon": "-0.10538355078478853",
+        "lat": "51.51421292148552"
+    },
+    "Earl of Lonsdale, 277-281 Westbourne Grove, London W11 2QA": {
+        "lon": "-0.2027103414779785",
+        "lat": "51.51344245"
+    },
+    "The Champion, 12-13 Wells Street, London W1T 3PA": {
+        "lon": "-0.13727499592145323",
+        "lat": "51.516873000000004"
+    },
+    "The Cardinal, 23 Francis Street, London SW1P 1DN": {
+        "lon": "-0.13779775641358027",
+        "lat": "51.49517175"
+    },
+    "Dover Castle Pub, 43 Weymouth Mews, London W1G 7EQ": {
+        "lon": "-0.1461862635632778",
+        "lat": "51.52007905"
+    },
+    "The Argyll Arms, 18 Argyll Street, London W1F 7TP": {
+        "lon": "-0.141263",
+        "lat": "51.5150632"
+    },
+    "The Glassblower, 40-42 Glasshouse Street, London W1B 5JY": {
+        "lon": "-0.13698615",
+        "lat": "51.51048915"
+    },
+    "The Sun, 21 Drury Lane, London WC2B 5RH": {
+        "lon": "-0.12323427705447007",
+        "lat": "51.51522975"
+    },
+    "The Nell of Old Drury, 29 Catherine Street, London WC2B 5JS": {
+        "lon": "-0.119080315008548",
+        "lat": "51.512107218376926"
+    },
+    "The Old Crown, 33 New Oxford Street, London WC1A 1BH": {
+        "lon": "-0.12505400236940772",
+        "lat": "51.5170193"
+    },
+    "The Duke of York, 47 Rathbone Street, London W1T 1NW": {
+        "lon": "-0.13594802832817388",
+        "lat": "51.5187496"
+    },
+    "Bricklayer's Arms, 31 Gresse Street, London W1T 1QS": {
+        "lon": "-0.1333706",
+        "lat": "51.517691"
+    },
+    "The Gunmakers, 13 Eyre Street Hill, London EC1R 5ET": {
+        "lon": "-0.1104184",
+        "lat": "51.5224993"
+    },
+    "The Fellow, 24 York Way, London N1 9AA": {
+        "lon": "-0.12228073182321184",
+        "lat": "51.53158635"
+    },
+    "The Old Fountain, 3 Baldwin Street, London EC1V 9NU": {
+        "lon": "-0.08904269968022943",
+        "lat": "51.5270244"
+    },
+    "The Ship Tavern, 12 Gate Street, London WC2A 3HP": {
+        "lon": "-0.1192033",
+        "lat": "51.5172349"
+    },
+    "Whitstable, Whitstable, Kent": {
+        "lon": "1.0343648",
+        "lat": "51.3576861"
+    },
+    "Regent's Park, Regent's Park, London": {
+        "lon": "-0.1511681",
+        "lat": "51.5379971"
+    },
+    "The Cask Pub And Kitchen, 6 Charlwood St, Pimlico, London SW1V 2EE": {
+        "lon": "-0.1373223",
+        "lat": "51.491093"
+    },
+    "UNKNOWN, London": {},
+    "The Winemakers Club, 41a Farringdon St, London EC4A 4AN": {
+        "lon": "-0.1047894",
+        "lat": "51.5171622"
+    },
+    "Every Cloud Bar, 11A Morning Ln, London E9 6ND": {
+        "lon": "-0.053650844434829474",
+        "lat": "51.546353660203984"
+    },
+    "Craft Beer Co, 168 High Holborn, London WC1V 7AA": {
+        "lon": "-0.125979",
+        "lat": "51.515637"
+    },
+    "Spa Fields, 51.525452, -0.108303": {
+        "lon": "-0.10832769857785887",
+        "lat": "51.52549985"
+    },
+    "The Earl of Essex, 25 Danbury Street, London, N1 8LE": {
+        "lon": "-0.09973865794617813",
+        "lat": "51.533854399999996"
+    },
+    "The Miller, 96 Snowsfields, London SE1 3SS": {
+        "lon": "-0.08749959201680685",
+        "lat": "51.50211275"
+    },
+    "The Westbury, 57 Westbury Avenue, London, N22 6SA": {
+        "lon": "-0.09841270847828865",
+        "lat": "51.5935449"
+    }
+}

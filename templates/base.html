@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% assets output='gen/screen.%(version)s.css', 'london.css' -%}
     <link rel='stylesheet' href='{{ ASSET_URL }}' media='screen'>
+    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
     {%- endassets %}
     <title>{% if self.title() %}{% block title %}{% endblock %}{% else %}Pub Standards London{% endif %}</title>
     {% block meta %}{% endblock %}
@@ -28,5 +29,7 @@
         <a href='https://github.com/pubstandards/pubstandards-london'>available on GitHub</a>.
       </p>
     </footer>
+    {% block script %}
+    {% endblock %}
   </body>
 </html>

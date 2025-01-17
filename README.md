@@ -7,6 +7,8 @@ Open ```ps_data.json```, add a new entry for the event - the format is fairly se
 
 If you're adding more information about an event, just use the same date as the automatically generated one and specify the fields you want to override. Look at PS C and PS LXVI for examples.
 
+The website build process will attempt to automatically geocode (lookup coordinates) for any new locations. If a map isn't displayed on the event page, or it's wrong, you can manually add coordinates in [locations.json](./locations.json).
+
 How to hack on this website
 ---------------------------
 * Install [uv](https://docs.astral.sh/uv/)

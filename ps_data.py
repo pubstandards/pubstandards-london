@@ -43,6 +43,9 @@ PS_STARTS = datetime.time(18, 0, 0)
 PS_ENDS = datetime.time(23, 30, 0)
 PS_TIMEZONE = "Europe/London"
 
+with open("./locations.json", "r") as f:
+    LOCATIONS = json.load(f)
+
 
 class PSEvent(object):
     def __init__(
@@ -133,6 +136,9 @@ class PSEvent(object):
 
         return format_relative_time(relative)
 
+    def coords(self):
+        return LOCATIONS.get(self.location + ", " + self.address)
+
     def json(self):
         return {
             "title": self.title,
@@ -142,6 +148,7 @@ class PSEvent(object):
             "pretty_date": self.pretty_date,
             "location": self.location,
             "address": self.address,
+            "coordinates": self.coords(),
         }
 
 
@@ -164,7 +171,9 @@ def get_ps_event_by_slug(slug):
             return event
 
 
-def gen_events(start=None, end=None) -> Iterator[PSEvent]:
+def gen_events(
+    start: Optional[datetime.datetime] = None, end: Optional[datetime.datetime] = None
+) -> Iterator[PSEvent]:
     if end is None:
         end = utc_now() + datetime.timedelta(days=3650)
     gen = the_algorithm.gen_ps_dates(start)
@@ -174,7 +183,9 @@ def gen_events(start=None, end=None) -> Iterator[PSEvent]:
         event = PSEvent(date=next(gen))
 
 
-def get_manual_ps_events(start=None, end=None) -> Iterator[PSEvent]:
+def get_manual_ps_events(
+    start: Optional[datetime.datetime] = None, end: Optional[datetime.datetime] = None
+) -> Iterator[PSEvent]:
     for stringdate, event in load_ps_data().items():
         date_obj = datetime.datetime.strptime(stringdate, "%Y-%m-%d").date()
         event = PSEvent(event, date=date_obj, manual=True)
@@ -204,7 +215,9 @@ def merge_event_iters(
         yield previous
 
 
-def events(start=None, end=None) -> Iterator[PSEvent]:
+def events(
+    start: Optional[datetime.datetime] = None, end: Optional[datetime.datetime] = None
+) -> Iterator[PSEvent]:
     yield from merge_event_iters(
         get_manual_ps_events(start=start, end=end), gen_events(start=start, end=end)
     )
