@@ -3,7 +3,7 @@
     {% if attendees %}
         <li>{{description}}:
             {% for attendee in attendees %}
-                <a href="https://github.com/{{ attendee["username"] }}"><img src="{{ attendee["avatar_url"] }}&s=20" title="{{ attendee["name"] }} ({{ attendee["username"] }})"></a>
+                <a href="https://github.com/{{ attendee["username"] }}"><img src="{{ attendee["avatar_url"] }}&s=20" title="{{ attendee["name"] }} ({{ attendee["username"] }}) width="20" height="20"></a>
             {% endfor %}
         </li>
     {% endif %}
