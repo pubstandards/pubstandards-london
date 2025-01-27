@@ -11,7 +11,7 @@ The website build process will attempt to automatically geocode (lookup coordina
 
 How to hack on this website
 ---------------------------
-While the website is written in Flask, at [build time](./workflows/build.yml) it's converted into a static site using the highly sophisticated method of `wget` - this happens every hour as long as Github Actions is working. If you add a new page, it needs to be linked from somewhere for the wget crawl to pick it up.
+While the website is written in Flask, at [build time](./.github/workflows/build.yml) it's converted into a static site using the highly sophisticated method of `wget` - this happens every hour as long as Github Actions is working. If you add a new page, it needs to be linked from somewhere for the wget crawl to pick it up.
 
 To edit:
 * Install [uv](https://docs.astral.sh/uv/)
