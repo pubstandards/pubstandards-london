@@ -171,7 +171,12 @@ class PSEvent(object):
             "location": self.location,
             "address": self.address,
             "coordinates": self.coords(),
-            "rsvp": self.attendance_issue_url,
+            "rsvp_url": self.attendance_issue_url,
+            "rsvp_responses": {
+                "attending": len(self.get_attendance("+1")),
+                "interested": len(self.get_attendance("eyes")),
+                "not_attending": len(self.get_attendance("-1"))
+            }
         }
 
 
