@@ -16,6 +16,7 @@
             for (const coord of coords) {
                 new maplibregl.Marker()
                     .setLngLat(coord)
+                    .setPopup(new maplibregl.Popup().setHTML(coord["name"]))
                     .addTo(map)
             }
         })

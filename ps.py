@@ -42,7 +42,10 @@ def next_event():
 
 @app.route("/previous")
 def previous():
-    coordinates = list(ps_data.LOCATIONS.values())
+    coordinates = [
+        {"lat": v["lat"], "lon": v["lon"], "name": k}
+        for k, v in ps_data.LOCATIONS.items()
+    ]
     events = ps_data.events(end=utc_now())
     return flask.render_template(
         "previous.html", events=events, events_coordinates=coordinates
