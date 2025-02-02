@@ -214,5 +214,9 @@
     "The Westbury, 57 Westbury Avenue, London N22 6SA": {
         "lon": "-0.09841270847828865",
         "lat": "51.5935449"
+    },
+    "The Holly Tree, 141 Dames Road, London E7 0DZ": {
+        "lon": "0.020298471558535737",
+        "lat": "51.555793449999996"
     }
 }
