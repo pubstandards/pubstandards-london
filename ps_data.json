@@ -348,6 +348,13 @@
         "description": "Apparently they serve beer outside Zone 1.",
         "starts": "19:00"
     },
+    "2025-02-24": {
+        "name": "Substandards Centrally",
+        "location": "Ye Olde Mitre",
+        "address": "1 Ely Ct, Ely Pl, London EC1N 6SJ",
+        "description": "Let's go to the middle! We'll probably be inside, somewhere in the maze of rooms - directions to follow.",
+        "starts": "19:00"
+    },
     "2025-03-27": {
         "name": "Substandards Easterly",
         "location": "The Holly Tree",
