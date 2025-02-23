@@ -1,4 +1,4 @@
-""" Lookup coordinates for new locations using Nominatim (OpenStreetMap's geocoder). """
+"""Lookup coordinates for new locations using Nominatim (OpenStreetMap's geocoder)."""
 
 import httpx
 import json
@@ -13,6 +13,7 @@ CACHE_FILE = Path("./locations.json")
 
 # Simplified Pattern #2 from https://stackoverflow.com/a/51885364
 POSTCODE_REGEX = r"[A-Z][A-HJ-Y]?\d[A-Z\d]? ?\d[A-Z]{2}|GIR ?0A{2}"
+
 
 def update_locations() -> None:
     try:
@@ -37,16 +38,24 @@ def update_locations() -> None:
             print("\n!!! Unable to geocode location:", event.location, event.address)
             sys.exit(1)
 
-        coords = {"lon": location["lon"], "lat": location["lat"]}
+        fields = {
+            "lon": location["lon"],
+            "lat": location["lat"],
+            "osm_type": location["osm_type"],
+            "osm_id": location["osm_id"],
+        }
+
+        osm_tag_data = osm_data(location["osm_type"], location["osm_id"])
+        fields.update(osm_tag_data)
 
         changed += 1
 
         print(f"Geocoded new location {event.location}, {event.address}:")
         print(
-            f"Coords: {coords}, type: {location.get('type')} address: {location.get('display_name')}"
+            f"Coords: ({fields['lat']},{fields['lon']}), type: {location.get('type')} address: {location.get('display_name')}"
         )
         sleep(1)
-        cache[cache_key] = coords
+        cache[cache_key] = fields
 
     with CACHE_FILE.open("w") as f:
         json.dump(cache, f, indent=4)
@@ -88,11 +97,15 @@ def geocode(event: PSEvent):
 
             # Validate the postcode of the result matches our search, otherwise
             # people may end up in the wrong pub
-            matches = re.search(f" ({POSTCODE_REGEX}),", result.get("display_name"), flags=re.IGNORECASE)
+            matches = re.search(
+                f" ({POSTCODE_REGEX}),", result.get("display_name"), flags=re.IGNORECASE
+            )
             if location_postcode and matches:
                 # We ignore the last two characters as OSM often has postcodes slightly wrong
                 if matches.group(1)[:-2] != location_postcode[:-2]:
-                    print(f" * Postcode {matches.group(1)} does not match, discarding result")
+                    print(
+                        f" * Postcode {matches.group(1)} does not match, discarding result"
+                    )
                     continue
 
             return result
@@ -110,6 +123,21 @@ def nominatim_geocode(query: str):
     if len(data) == 0:
         return None
     return data[0]
+
+
+def osm_data(osm_type: str, osm_id: int):
+    response = httpx.get(
+        f"https://www.openstreetmap.org/api/0.6/{osm_type}/{osm_id}.json"
+    )
+    data = response.json()
+    if len(data) == 0:
+        return None
+
+    return {
+        "wikidata_id": data["elements"][0]["tags"].get("wikidata"),
+        "fhrs_id": data["elements"][0]["tags"].get("fhrs:id"),
+        "website": data["elements"][0]["tags"].get("website"),
+    }
 
 
 if __name__ == "__main__":
