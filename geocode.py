@@ -3,6 +3,7 @@
 import httpx
 import json
 import re
+import sys
 from pathlib import Path
 from ps_data import events, PSEvent
 from time import sleep
@@ -10,6 +11,8 @@ from time import sleep
 NOMINATIM_ENDPOINT = "https://nominatim.openstreetmap.org/search"
 CACHE_FILE = Path("./locations.json")
 
+# Simplified Pattern #2 from https://stackoverflow.com/a/51885364
+POSTCODE_REGEX = r"[A-Z][A-HJ-Y]?\d[A-Z\d]? ?\d[A-Z]{2}|GIR ?0A{2}"
 
 def update_locations() -> None:
     try:
@@ -31,9 +34,8 @@ def update_locations() -> None:
 
         location = geocode(event)
         if location is None:
-            print("Unable to geocode location:", event.location, event.address)
-            cache[cache_key] = {}
-            continue
+            print("\n!!! Unable to geocode location:", event.location, event.address)
+            sys.exit(1)
 
         coords = {"lon": location["lon"], "lat": location["lat"]}
 
@@ -59,17 +61,40 @@ def geocode(event: PSEvent):
     # Massage the address to satisfy Nominatim
     # Add a comma after the street number
     address = re.sub(r" ([0-9]+) ", r"\1,", event.address).split(",")
+
+    # If a pub is called "Bricklayers Arms" Nominatim will refuse to find it
+    # under "The Bricklayers Arms" so try both
+    location_minus_the = re.sub(r"^The ", r"", event.location, flags=re.IGNORECASE)
+
+    location_postcode = None
+    matches = re.search(f" ({POSTCODE_REGEX})$", event.address, flags=re.IGNORECASE)
+    if matches:
+        location_postcode = matches.group(1)
+
     # Try stripping off parts of the address to get it to match.
     queries = [
         f"{event.location}, {",".join(address)}",
         f"{event.location}, {",".join(address[1:])}",
         f"{event.location}, {",".join(address[2:])}",
+        f"{location_minus_the}, {",".join(address)}",
+        f"{location_minus_the}, {",".join(address[1:])}",
+        f"{location_minus_the}, {",".join(address[2:])}",
         event.address,
     ]
     for query in queries:
         print(query)
         result = nominatim_geocode(query)
         if result is not None:
+
+            # Validate the postcode of the result matches our search, otherwise
+            # people may end up in the wrong pub
+            matches = re.search(f" ({POSTCODE_REGEX}),", result.get("display_name"), flags=re.IGNORECASE)
+            if location_postcode and matches:
+                # We ignore the last two characters as OSM often has postcodes slightly wrong
+                if matches.group(1)[:-2] != location_postcode[:-2]:
+                    print(f" * Postcode {matches.group(1)} does not match, discarding result")
+                    continue
+
             return result
     return None
 
