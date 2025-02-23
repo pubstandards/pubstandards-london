@@ -31,7 +31,7 @@
         "lon": "-0.10717614909398387",
         "lat": "51.51433295"
     },
-    "The Crown and Two Chairman, 31-32 Dean Street, London W1D 3SB": {
+    "The Crown & Two Chairmen, 31-32 Dean Street, London W1D 3SB": {
         "lon": "-0.13243930588777703",
         "lat": "51.5138574"
     },
@@ -51,7 +51,7 @@
         "lon": "-0.13525055346885673",
         "lat": "51.518127"
     },
-    "Cittie of York, 22 High Holborn, London WC1V 6BN": {
+    "Cittie of Yorke, 22 High Holborn, London WC1V 6BN": {
         "lon": "-0.1128421238994578",
         "lat": "51.5184455"
     },
@@ -72,8 +72,8 @@
         "lat": "51.5118538"
     },
     "The White Horse, 45 Rupert Street, London W1D 7PJ": {
-        "lon": "-0.13363306245036066",
-        "lat": "51.51221417084282"
+        "lon": "-0.133452",
+        "lat": "51.51186"
     },
     "The Angel, 61-62 St Giles High Street, London WC2H 8LH": {
         "lon": "-0.12783982814894382",
@@ -92,8 +92,8 @@
         "lat": "51.5109263"
     },
     "Ship and Shovell, 1-3 Craven Passage, London WC2N 5PH": {
-        "lon": "-0.12464495",
-        "lat": "51.50767125"
+        "lon": "-0.12479030071127226",
+        "lat": "51.507689"
     },
     "Green Man & French Horn, 54 Saint Martin's Lane, London WC2N 4EA": {
         "lon": "-0.12676775",
@@ -136,16 +136,16 @@
         "lat": "51.5150632"
     },
     "The Glassblower, 40-42 Glasshouse Street, London W1B 5JY": {
-        "lon": "-0.13698615",
-        "lat": "51.51048915"
+        "lon": "-0.13703157279390132",
+        "lat": "51.510626349999995"
     },
     "The Sun, 21 Drury Lane, London WC2B 5RH": {
         "lon": "-0.12323427705447007",
         "lat": "51.51522975"
     },
     "The Nell of Old Drury, 29 Catherine Street, London WC2B 5JS": {
-        "lon": "-0.119080315008548",
-        "lat": "51.512107218376926"
+        "lon": "-0.12063058621816064",
+        "lat": "51.51258205"
     },
     "The Old Crown, 33 New Oxford Street, London WC1A 1BH": {
         "lon": "-0.12505400236940772",
@@ -215,12 +215,12 @@
         "lon": "-0.09841270847828865",
         "lat": "51.5935449"
     },
-    "The Holly Tree, 141 Dames Road, London E7 0DZ": {
-        "lon": "0.020298471558535737",
-        "lat": "51.555793449999996"
-    },
     "Ye Olde Mitre, 1 Ely Ct, Ely Pl, London EC1N 6SJ": {
         "lon": "-0.10738277040280805",
         "lat": "51.5184299"
+    },
+    "The Holly Tree, 141 Dames Road, London E7 0DZ": {
+        "lon": "0.020298471558535737",
+        "lat": "51.555793449999996"
     }
 }
