@@ -52,7 +52,9 @@ def update_locations() -> None:
 
         print(f"Geocoded new location {event.location}, {event.address}:")
         print(
-            f"Coords: ({fields['lat']},{fields['lon']}), type: {location.get('type')} address: {location.get('display_name')}"
+            f"Coords: ({fields['lat']},{fields['lon']}) "
+            + "type: {location.get('type')} "
+            + "address: {location.get('display_name')}"
         )
         sleep(1)
         cache[cache_key] = fields
