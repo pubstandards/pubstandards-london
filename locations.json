@@ -22,7 +22,7 @@
         "lat": "51.51025265",
         "osm_type": "way",
         "osm_id": 99952313,
-        "wikidata_id": null,
+        "wikidata_id": "Q132732751",
         "fhrs_id": "410933",
         "website": "http://www.porterhousebrewco.com/bars-london-coventgarden.php"
     },
@@ -31,7 +31,7 @@
         "lat": "51.51675935",
         "osm_type": "way",
         "osm_id": 244772127,
-        "wikidata_id": null,
+        "wikidata_id": "Q132732809",
         "fhrs_id": "411905",
         "website": null
     },
@@ -49,7 +49,7 @@
         "lat": "51.51686325",
         "osm_type": "way",
         "osm_id": 183366008,
-        "wikidata_id": null,
+        "wikidata_id": "Q132732860",
         "fhrs_id": "423806",
         "website": null
     },
@@ -58,7 +58,7 @@
         "lat": "51.519135250000005",
         "osm_type": "way",
         "osm_id": 118806519,
-        "wikidata_id": null,
+        "wikidata_id": "Q132732920",
         "fhrs_id": "423686",
         "website": "https://www.youngs.co.uk/pub-detail.asp?PubID=432"
     },
@@ -76,7 +76,7 @@
         "lat": "51.5138574",
         "osm_type": "way",
         "osm_id": 280980550,
-        "wikidata_id": null,
+        "wikidata_id": "Q121745465",
         "fhrs_id": "427978",
         "website": null
     },
@@ -94,7 +94,7 @@
         "lat": "51.51698365",
         "osm_type": "way",
         "osm_id": 97209483,
-        "wikidata_id": null,
+        "wikidata_id": "Q132732978",
         "fhrs_id": "413921",
         "website": null
     },
@@ -157,6 +157,15 @@
         "lat": "51.5118538",
         "osm_type": "way",
         "osm_id": 156614973,
+        "wikidata_id": null,
+        "fhrs_id": null,
+        "website": null
+    },
+    "The White Horse, 45 Rupert Street, London W1D 7PJ": {
+        "lon": "-0.133452",
+        "lat": "51.51186",
+        "osm_type": "node",
+        "osm_id": 348911273,
         "wikidata_id": null,
         "fhrs_id": null,
         "website": null
@@ -483,15 +492,6 @@
         "osm_id": 224178092,
         "wikidata_id": null,
         "fhrs_id": "1125168",
-        "website": null
-    },
-    "The White Horse, 45 Rupert Street, London W1D 7PJ": {
-        "lon": "-0.133452",
-        "lat": "51.51186",
-        "osm_type": "node",
-        "osm_id": 348911273,
-        "wikidata_id": null,
-        "fhrs_id": null,
         "website": null
     }
 }
