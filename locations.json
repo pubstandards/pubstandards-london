@@ -161,15 +161,6 @@
         "fhrs_id": null,
         "website": null
     },
-    "The White Horse, 45 Rupert Street, London W1D 7PJ": {
-        "lon": "-1.566556406333334",
-        "lat": "51.5777407",
-        "osm_type": "relation",
-        "osm_id": 1618450,
-        "wikidata_id": "Q1056493",
-        "fhrs_id": null,
-        "website": null
-    },
     "The Angel, 61-62 St Giles High Street, London WC2H 8LH": {
         "lon": "-0.12783982814894382",
         "lat": "51.515489450000004",
@@ -492,6 +483,15 @@
         "osm_id": 224178092,
         "wikidata_id": null,
         "fhrs_id": "1125168",
+        "website": null
+    },
+    "The White Horse, 45 Rupert Street, London W1D 7PJ": {
+        "lon": "-0.133452",
+        "lat": "51.51186",
+        "osm_type": "node",
+        "osm_id": 348911273,
+        "wikidata_id": null,
+        "fhrs_id": null,
         "website": null
     }
 }
