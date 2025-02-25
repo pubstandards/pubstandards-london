@@ -102,7 +102,11 @@ def geocode(event: PSEvent):
             matches = re.search(
                 f" ({POSTCODE_REGEX}),", result.get("display_name"), flags=re.IGNORECASE
             )
-            if location_postcode and matches:
+            if location_postcode:
+                if not matches:
+                    print(" * Result missing postcode, discarding result")
+                    continue
+
                 # We ignore the last two characters as OSM often has postcodes slightly wrong
                 if matches.group(1)[:-2] != location_postcode[:-2]:
                     print(
