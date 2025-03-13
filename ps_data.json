@@ -332,6 +332,7 @@
         "location": "Spa Fields",
         "address": "91 Skinner St, London EC1R 0WX",
         "starts": "16:00",
+        "ends": "23:00",
         "description": "The pandemic has gone on for too long, and we should meet up again before it gets cold. Join us for outdoor drinking at Spa Fields. We'll aim to grab the tables next to the pavillion, at the exact location shown on the map. Toilets, pizza, and beer are available just round the corner on Exmouth Market."
     },
     "2024-08-08": {
@@ -339,7 +340,8 @@
         "location": "The Earl of Essex",
         "address": "25 Danbury Street, London N1 8LE",
         "description": "Look, it's been ages, I need a beer. I miss you all so come and say hello. We'll be out the front, and if we're not out the front ...out the back.",
-        "starts": "19:00"
+        "starts": "19:00",
+        "ends": "23:00"
     },
     "2025-01-30": {
         "name": "Substandards Northerly",

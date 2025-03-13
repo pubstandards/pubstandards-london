@@ -163,14 +163,6 @@ class TestLookups(unittest.TestCase):
         )
         self.assertStartsAt(first_ss, utc_datetime(2006, 9, 25, 17, 0))
 
-    @unittest.skip("Currently no way to test PS slugs")
-    def test_manual_ps_slugs(self):
-        ps_65 = ps_data.get_ps_event_by_slug("pubstandards-lxv")
-        self.assertStartsAt(ps_65, utc_datetime(2005, 12, 14, 18, 0))
-
-        ps_100 = ps_data.get_ps_event_by_slug("pubstandards-c")
-        self.assertStartsAt(ps_100, utc_datetime(2014, 3, 13, 18, 0))
-
     def test_cancelled_event(self):
         ss_pista = ps_data.get_ps_event_by_slug("substandards-pista")
         assert ss_pista.cancelled is False

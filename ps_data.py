@@ -20,7 +20,16 @@ from dateutil.relativedelta import relativedelta
 from util import combine_tz, utc_now, format_relative_time
 
 Venue = namedtuple(
-    "Venue", ["from_date", "until_date", "name", "address", "description"]
+    "Venue",
+    [
+        "from_date",
+        "until_date",
+        "name",
+        "address",
+        "description",
+        "start_time",
+        "end_time",
+    ],
 )
 
 VENUES = [
@@ -30,6 +39,8 @@ VENUES = [
         "The Bricklayers Arms",
         "31 Gresse Street, London W1T 1QS",
         "We'll meet in the upstairs room as usual.",
+        datetime.time(18, 0, 0),
+        datetime.time(23, 30, 0),
     ),
     Venue(
         HIATUSES[0][1],
@@ -37,11 +48,21 @@ VENUES = [
         "The Miller",
         "96 Snowsfields, London SE1 3SS",
         "Outside if it's nice, inside if it's not.",
+        datetime.time(19, 0, 0),
+        datetime.time(23, 0, 0),
     ),
 ]
 
-PS_STARTS = datetime.time(19, 0, 0)
-PS_ENDS = datetime.time(23, 00, 0)
+
+def get_venue(date: datetime.date) -> Optional[Venue]:
+    for venue in VENUES:
+        if venue.from_date < date and (
+            venue.until_date is None or venue.until_date > date
+        ):
+            return venue
+    return None
+
+
 PS_TIMEZONE = "Europe/London"
 
 try:
@@ -63,8 +84,8 @@ class PSEvent(object):
     ) -> None:
         if date is None:
             raise ValueError("date is required for a PSEvent")
-        self.starts = PS_STARTS
-        self.ends = PS_ENDS
+        self.starts = None
+        self.ends = None
         self.location = None
         self.address = None
         self.name = None
@@ -84,18 +105,24 @@ class PSEvent(object):
         if "cancelled" in data:
             self.cancelled = bool(data["cancelled"])
 
-        if self.location is None:
-            for venue in VENUES:
-                if venue.from_date < self.date and (
-                    venue.until_date is None or venue.until_date > self.date
-                ):
-                    self.location = venue.name
-                    self.address = venue.address
-                    if self.description is None:
-                        self.description = venue.description
-                    break
-            else:
-                raise ValueError("No venue found for date {}".format(self.date))
+        # Populate any missing info from the default venue for this date.
+        default_venue = get_venue(self.date)
+        if self.location is None and default_venue:
+            self.location = default_venue.name
+            self.address = default_venue.address
+            self.starts = default_venue.start_time
+            self.ends = default_venue.end_time
+            if self.description is None:
+                self.description = default_venue.description
+
+        if self.starts is None and default_venue:
+            self.starts = default_venue.start_time
+
+        if self.ends is None and default_venue:
+            self.ends = default_venue.end_time
+
+        if not self.starts or not self.ends or not self.location or not self.address:
+            raise ValueError(f"Missing required fields for {self.name} ({self.date}).")
 
         self.tzinfo = ZoneInfo(PS_TIMEZONE)
 
