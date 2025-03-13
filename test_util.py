@@ -1,9 +1,11 @@
 import the_algorithm
 from datetime import datetime
-import pytz
+from datetime import timezone
+
 
 def parse_datestr(datestr):
-    return datetime.strptime(datestr, '%Y-%m-%d')
+    return datetime.strptime(datestr, "%Y-%m-%d")
+
 
 def is_algorithmic_ps_date(ev_datestr):
     # Fields required vary depending on whether this is Pub or Substandards
@@ -14,5 +16,4 @@ def is_algorithmic_ps_date(ev_datestr):
 
 
 def utc_datetime(year, month, day, hour=0, minute=0, second=0, microsecond=0):
-    return datetime(year, month, day, hour, minute, second, microsecond, pytz.UTC)
-
+    return datetime(year, month, day, hour, minute, second, microsecond, timezone.utc)
