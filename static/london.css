@@ -102,7 +102,7 @@ header em {
     color: #360;
 }
 
-#content {
+main {
     clear: both;
     color: #666;
     line-height:            1.4;
@@ -111,7 +111,7 @@ header em {
     margin-top:             1em;
 }
 
-#content > * + * {
+main > * + * {
     margin-block-start: 1rem;
 }
 
