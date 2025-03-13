@@ -40,8 +40,8 @@ VENUES = [
     ),
 ]
 
-PS_STARTS = datetime.time(18, 0, 0)
-PS_ENDS = datetime.time(23, 30, 0)
+PS_STARTS = datetime.time(19, 0, 0)
+PS_ENDS = datetime.time(23, 00, 0)
 PS_TIMEZONE = "Europe/London"
 
 try:
@@ -178,8 +178,8 @@ class PSEvent(object):
             "rsvp_responses": {
                 "attending": len(self.get_attendance("+1")),
                 "interested": len(self.get_attendance("eyes")),
-                "not_attending": len(self.get_attendance("-1"))
-            }
+                "not_attending": len(self.get_attendance("-1")),
+            },
         }
 
 
