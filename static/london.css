@@ -56,6 +56,11 @@ a:focus, a:hover {
 header {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5em;
+    overflow: hidden;
     color: #690;
     font-family: 'Hoefler Text', 'Georgia', serif;
     font-size: 1.4em;
@@ -65,31 +70,30 @@ header {
 
 header h1 {
     flex: 1;
-    display: block;
     margin: 0;
     margin-left: -3rem;
     padding: 0;
 }
 
-header h1 a {
-    display: block;
-}
 
 header h1 a:hover {
     background-color: inherit;
 }
 
 header #logo {
-    object-position: -10px -80px;
-    object-fit: none;
-    height: 220px;
-    width: 300px;
+    background: url(/static/beer_mat.jpg) no-repeat;
+    background-size: contain;
+    
+    margin-left: -10%;
+    margin-top: -15%;
+    width: min(max(20vw, 180px), 280px);
+    aspect-ratio: 1/1;
 }
 
 header p {
     flex: 1;
     min-width: 10em;
-    margin-top: 3rem;
+    padding: 0.5em;
     display: block;
 }
 
