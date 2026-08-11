@@ -1,35 +1,35 @@
-<!DOCTYPE html>
-<html lang='en-gb'>
-  <head>
-    <meta charset='UTF-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% assets output='gen/screen.%(version)s.css', 'london.css' -%}
-    <link rel='stylesheet' href='{{ ASSET_URL }}' media='screen'>
-    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
-    {%- endassets %}
-    <title>{% if self.title() %}{% block title %}{% endblock %}{% else %}Pub Standards London{% endif %}</title>
-    {% block meta %}{% endblock %}
-  </head>
-  <body class='{% block body_class %}{% endblock %}'>
-    <div id='main'>
-      <header>
-        <h1><a href="/"><div id="logo" title="Pub Standards"></div></a></h1>
-        <p>
-          The infamous <em>beer-infused</em>, casual, social, warm, raucous, fine,
-          dandy, monthly <em>London</em> meet-up for <em>web folk</em>.
-        </p>
-      </header>
-      <main>
-        {% block body %}{% endblock %}
-      </main>
-    </div>
-    <footer>
-      <p>
-        The code for this site is
-        <a href='https://github.com/pubstandards/pubstandards-london'>available on GitHub</a>.
-      </p>
-    </footer>
-    {% block script %}
-    {% endblock %}
-  </body>
+<!doctype html>
+<html lang="en-gb">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {% assets output='gen/screen.%(version)s.css', 'london.css' -%}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" media="screen" />
+        {%- endassets %}
+        <title>
+            {% if self.title() %}{% block title %}{% endblock %}{% else %}Pub Standards London{% endif %}
+        </title>
+        {% block meta %}{% endblock %}
+    </head>
+    <body class="{% block body_class %}{% endblock %}">
+        <div id="main">
+            <header>
+                <h1>
+                    <a href="/"><div id="logo" title="Pub Standards"></div></a>
+                </h1>
+                <p>
+                    The infamous <em>beer-infused</em>, casual, social, warm, raucous, fine, dandy, monthly
+                    <em>London</em> meet-up for <em>web folk</em>.
+                </p>
+            </header>
+            <main>{% block body %}{% endblock %}</main>
+        </div>
+        <footer>
+            <p>
+                The code for this site is
+                <a href="https://github.com/pubstandards/pubstandards-london">available on GitHub</a>.
+            </p>
+        </footer>
+        {% block script %} {% endblock %}
+    </body>
 </html>
